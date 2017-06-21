@@ -6,7 +6,7 @@ This repository stores things like Dockerfiles, Jenkins jobs, code, and jar file
 
 ## Streaming Data Overview
 
-![Streaming Data Learning Path](images/StreamingDataImage.png)
+![Streaming Data Learning Path](StreamingDataImage.png)
 
 ## Prerequisites
 
