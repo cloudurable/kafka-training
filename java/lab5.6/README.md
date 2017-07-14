@@ -6,7 +6,7 @@ In this lab, you are going to set up Kafka Producer retries.
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
-Find the lastest version of this lab [here]().
+Find the latest version of this lab [here](https://gist.github.com/RichardHightower/f97963127e8e2343180b5080ecca1c13).
 
 ## Lab Adding Retries and Timeouts
 
