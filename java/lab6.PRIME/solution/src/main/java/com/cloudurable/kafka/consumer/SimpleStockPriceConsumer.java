@@ -300,10 +300,6 @@ public class SimpleStockPriceConsumer {
 //
 //    }
 //
-//    private static void processRecords(Map<String, StockPriceRecordPair> map, ConsumerRecords<String, StockPrice> consumerRecords) {
-//
-//    }
-
     //    public static void main(String... args) throws Exception {
 //
 //        SeekTo seekTo = SeekTo.NONE; // SeekTo what?
