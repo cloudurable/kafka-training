@@ -8,10 +8,19 @@ public class StockPrice {
     private final int cents;
     private final String name;
 
+
+    // TODO FIX THIS CONSTRUCTOR
     public StockPrice(final String json) {
-        this(JsonFactory.fromJson(json, StockPrice.class));
+        this((StockPrice) null); // BROKE FIX THIS BY USING THE HINT WHICH CALLS THE JSON PARSER.
+        // HINT Delete the above line and uncomment this line.
+        //this(JsonFactory.fromJson(json, StockPrice.class));
     }
 
+    public StockPrice(final StockPrice stockPrice) {
+        this.cents = stockPrice.cents;
+        this.dollars = stockPrice.dollars;
+        this.name = stockPrice.name;
+    }
 
     public StockPrice() {
         dollars = 0;
@@ -27,11 +36,7 @@ public class StockPrice {
 
 
 
-    public StockPrice(final StockPrice stockPrice) {
-        this.cents = stockPrice.cents;
-        this.dollars = stockPrice.dollars;
-        this.name = stockPrice.name;
-    }
+
 
 
     public int getDollars() {
