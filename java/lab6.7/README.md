@@ -5,12 +5,12 @@ In this lab, you are going to implement a priority queue with consumer.assign().
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
-Find the latest version of this lab [here](https://gist.github.com/RichardHightower/041c2c546e513a3481289ca16fe11cd4).
+Find the latest version of this lab [here](https://gist.github.com/RichardHightower/81a66e0f9822e9e74660deec10640d27).
 
 
 ## Lab Using consumer.assign to implement at priority queue
 In this lab you will implement a priority processing queue.
-Yuo will use consumer.partitionsFor(TOPIC) to get a list of partitions.
+You will use consumer.partitionsFor(TOPIC) to get a list of partitions.
 Usage like this simplest when the partition assignment is also done manually using assign()
 instead of subscribe().
 Use assign(), pass TopicPartition from the consumer worker.
