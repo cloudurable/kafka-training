@@ -44,22 +44,30 @@ public class ConsumerMain {
         return new KafkaConsumer<>(props);
     }
 
+    //TODO finish this method
     public static void main(String... args) throws Exception {
         final int threadCount = 5;
-        final ExecutorService executorService = newFixedThreadPool(threadCount);
+
+        //TODO Create a thread pool
+        final ExecutorService executorService = null;  // BROKE... FIX ME... HINT newFixedThreadPool(threadCount);
         final AtomicBoolean stopAll = new AtomicBoolean();
 
+
         IntStream.range(0, threadCount).forEach(index -> {
-            final StockPriceConsumerRunnable stockPriceConsumer =
-                    new StockPriceConsumerRunnable(createConsumer(),
-                            1000, index, stopAll);
-            executorService.submit(stockPriceConsumer);
+
+            //TODO create StockPriceConsumerRunnable and submit it to the executorService
+            //HINT    new StockPriceConsumerRunnable(createConsumer(),
+            //                1000, index, stopAll);
+            //HINT executorService.submit(???);
         });
 
-        //Register nice shutdown of thread pool, then flush and close producer.
+        //Register nice shutdown of thread pool, then flush and EXTRA CREDIT close the consumers.
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("Stopping app");
             stopAll.set(true);
+
+            //TODO EXTRA CREDIT call wake up on the list of running consumers.
+            // Keep a list of the consumers when you start up the threads above.
             sleep();
             executorService.shutdown();
             try {

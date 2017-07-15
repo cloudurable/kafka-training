@@ -16,7 +16,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static com.cloudurable.kafka.StockAppConstants.TOPIC;
 
 
-public class StockPriceConsumerRunnable implements Runnable{
+// TODO implement Runnable
+public class StockPriceConsumerRunnable {
     private static final Logger logger =
             LoggerFactory.getLogger(StockPriceConsumerRunnable.class);
 
@@ -25,6 +26,13 @@ public class StockPriceConsumerRunnable implements Runnable{
     private final int threadIndex;
     private final AtomicBoolean stopAll;
     private boolean running = true;
+
+
+    //TODO implement run method
+    public void run() {
+        // TODO call runConsumer, catch exceptions and log them.
+        // HINT    runConsumer();
+    }
 
 
     public StockPriceConsumerRunnable(final Consumer<String, StockPrice> consumer,
@@ -72,9 +80,6 @@ public class StockPriceConsumerRunnable implements Runnable{
             if (stopAll.get()) this.setRunning(false);
             return;
         }
-
-
-
 
         try {
             startTransaction();                         //Start DB Transaction
@@ -129,13 +134,4 @@ public class StockPriceConsumerRunnable implements Runnable{
         System.out.println();
     }
 
-    @Override
-    public void run() {
-        try {
-            runConsumer();
-        } catch (Exception ex) {
-            logger.error("Run Consumer Exited with", ex);
-            throw new RuntimeException(ex);
-        }
-    }
 }

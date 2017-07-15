@@ -5,4 +5,5 @@ pkill -9 java
 
 rm -rf ~/kafka-training/logs/
 rm -rf /tmp/zookeeper
+rm -rf /tmp/stockPricesTable
 
