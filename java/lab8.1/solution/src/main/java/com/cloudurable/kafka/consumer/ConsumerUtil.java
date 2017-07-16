@@ -30,10 +30,15 @@ public class ConsumerUtil {
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 BROKERS);
 
+        // Configure SSL as the client security protocol
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SSL");
+        // Configure the truststore location
         props.put("ssl.truststore.location", "/opt/kafka/conf/certs/kafka.truststore");
+        // Configure the truststore password
         props.put("ssl.truststore.password", "kafka123");
+        // Configure the keystore location
         props.put("ssl.keystore.location", "/opt/kafka/conf/certs/kafka.keystore");
+        // Configure the keystore password
         props.put("ssl.keystore.password", "kafka123");
 
 

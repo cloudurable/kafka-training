@@ -22,13 +22,18 @@ public class StockPriceProducerUtils {
         final Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 "localhost:10092,localhost:10093");
+
+        // Configure SSL as the client security protocol
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SSL");
-        props.put("ssl.truststore.location",
-                "/opt/kafka/conf/certs/kafka.truststore");
+        // Configure the truststore location
+        props.put("ssl.truststore.location", "/opt/kafka/conf/certs/kafka.truststore");
+        // Configure the truststore password
         props.put("ssl.truststore.password", "kafka123");
-        props.put("ssl.keystore.location",
-                "/opt/kafka/conf/certs/kafka.keystore");
+        // Configure the keystore location
+        props.put("ssl.keystore.location", "/opt/kafka/conf/certs/kafka.keystore");
+        // Configure the keystore password
         props.put("ssl.keystore.password", "kafka123");
+
 
         props.put(ProducerConfig.CLIENT_ID_CONFIG, "StockPriceProducerUtils");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lab8.3.iml" filepath="$PROJECT_DIR$/.idea/modules/lab8.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka-training.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka-training.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka-training_main.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka-training_main.iml" group="kafka-training" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka-training_test.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka-training_test.iml" group="kafka-training" />
     </modules>
   </component>
 </project>
