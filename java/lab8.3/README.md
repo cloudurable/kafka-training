@@ -5,7 +5,7 @@ In this lab, you are going to Kafka SASL PLAIN.
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
-Find the latest version of this lab [here]().
+Find the latest version of this lab [here](https://gist.github.com/RichardHightower/bb989e89db38c092795ad108edd45b7d).
 
 ## Kafka and SASL PLAIN
 
@@ -149,9 +149,3 @@ Client {
 ## Expected results
 You should be able to send records from the producer to the broker
 and read records from the consumer to the broker using SASL PLAIN auth.
-
-
-
-
-
-

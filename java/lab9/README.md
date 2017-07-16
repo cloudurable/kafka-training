@@ -5,7 +5,7 @@ In this lab, you are going to set up Kafka MirrorMaker.
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
-Find the latest version of this lab [here]().
+Find the latest version of this lab [here](https://gist.github.com/RichardHightower/00fa622c4128bbf25a796029882a90aa).
 
 ## Kafka MirrorMaker
 
@@ -96,9 +96,3 @@ Also setup different partition sizes and disable auto create for cluster 0.
 You should be able to send records from the producer to the broker and this data
 get replicated to the other servers.
 The consumers should have the same stock prices in their console.
-
-
-
-
-
-

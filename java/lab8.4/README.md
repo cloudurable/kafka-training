@@ -5,7 +5,7 @@ In this lab, you are going to Kafka SASL SCRAM.
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
-Find the latest version of this lab [here]().
+Find the latest version of this lab [here](https://gist.github.com/RichardHightower/54a9ce6b2ff35645605711a0b8022fd7).
 
 ## Kafka and SASL PLAIN
 
@@ -116,9 +116,3 @@ Client {
 ## Expected results
 You should be able to send records from the producer to the broker
 and read records from the consumer to the broker using SASL SCRAM auth.
-
-
-
-
-
-
