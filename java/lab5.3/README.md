@@ -5,7 +5,7 @@ In this lab, you are going to set up producer durability for our advanced produc
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
-Find the lastest version of this lab [here](https://gist.github.com/RichardHightower/87b1646895502d9c098a0e5610c8e622).
+Find the latest version of this lab [here](https://gist.github.com/RichardHightower/87b1646895502d9c098a0e5610c8e622).
 
 
 
@@ -133,7 +133,7 @@ When you are done, change acks back to acks=all.
 
 
 
-## ***ACTION*** EDIT StockPriceKafkaProducer and set Producer config acks to "1".
+## ***ACTION*** EDIT StockPriceKafkaProducer and set Producer config acks to "0".
 ## ***ACTION*** RUN all brokers and zookeeper if needed.
 ## ***ACTION*** RUN StockPriceKafkaProducer from the IDE
 ## ***ACTION*** REPEAT Last experiment, but this time run bin/describe-topics.sh and observe.

@@ -244,12 +244,9 @@ public class StockPriceKafkaProducer {
     final List<StockSender> stockSenders = getStockSenderList(producer);
 
     //Create a thread pool so every stock sender gets it own.
-    // Increase by 1 to fit metrics.
     final ExecutorService executorService =
-            Executors.newFixedThreadPool(stockSenders.size() + 1);
+            Executors.newFixedThreadPool(stockSenders.size());
 
-    //Run Metrics Producer Reporter which is runnable passing it the producer.
-    executorService.submit(new MetricsProducerReporter(producer));
 
     //Run each stock sender in its own thread.
     stockSenders.forEach(executorService::submit);
