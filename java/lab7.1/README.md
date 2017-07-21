@@ -84,13 +84,13 @@ Let's take a look at an example Avro schema.
 #### Example schema for an Employee record
 
 ```javascript
-{"namespace": "com.cloudurable.phonebook", 
-  "type": "record",   "name": "Employee", 
-    "fields": [ 
-        {"name": "firstName", "type": "string"}, 
-        {"name": "lastName", "type": "string"}, 
-        {"name": "age",  "type": "int"}, 
-        {"name": "phoneNumber",  "type": "string"} 
+{"namespace": "com.cloudurable.phonebook",
+  "type": "record",  "name": "Employee",
+    "fields": [
+        {"name": "firstName", "type": "string"},
+        {"name": "lastName", "type": "string"},
+        {"name": "age",  "type": "int"},
+        {"name": "phoneNumber",  "type": "string"}
     ]
 }
 ```
