@@ -41,9 +41,9 @@ Lastly modify  `server-2.properties` to use `port` 9094, broker `id` 2, and `log
 ```sh
 $ cd ~/kafka-training
 $ mkdir -p lab1.2/config
-$ cp kafka/config/server.properties kafka/lab1.2/config/server-0.properties
-$ cp kafka/config/server.properties kafka/lab1.2/config/server-1.properties
-$ cp kafka/config/server.properties kafka/lab1.2/config/server-2.properties
+$ cp kafka/config/server.properties lab1.2/config/server-0.properties
+$ cp kafka/config/server.properties lab1.2/config/server-1.properties
+$ cp kafka/config/server.properties lab1.2/config/server-2.properties
 ```
 
 
