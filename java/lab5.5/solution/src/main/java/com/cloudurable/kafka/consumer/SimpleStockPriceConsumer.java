@@ -51,7 +51,9 @@ public class SimpleStockPriceConsumer {
                 consumerRecords.forEach(record -> {
                     map.put(record.key(), record.value());
                 });
-                if (readCount % 500 == 0) {
+                
+                // Lower this number to see more output, higher to see less
+                if (readCount % 50 == 0) {
                     displayRecordsStatsAndStocks(map, consumerRecords);
                 }
                 consumer.commitAsync();
