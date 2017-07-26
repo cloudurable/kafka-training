@@ -72,6 +72,19 @@ public class StockPriceKafkaProducer {
 
         //Run each stock sender in its own thread.
         stockSenders.forEach(executorService::submit);
+        
+        //Register nice shutdown of thread pool, then flush and close producer.
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            executorService.shutdown();
+            try {
+                executorService.awaitTermination(200, TimeUnit.MILLISECONDS);
+                logger.info("Flushing and closing producer");
+                producer.flush();
+                producer.close(10_000, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                logger.warn("shutting down", e);
+            }
+        }));
 
     }
 
