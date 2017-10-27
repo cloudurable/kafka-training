@@ -60,7 +60,7 @@
 * A **stream processor** processes the stream. Since the input is immutable, stream processors may create a new stream from the original stream, but transformed.
 * The **High Level DSL** is essentially the java api.
 
-## Custom Word Count - Concepts (Stream Lab 1)
+## Custom Word Count - Concepts (Stream Lab 1-1)
 
 * Kafka streaming leverages the already existing Consumer and Producer API.
 * There are additional classes that make up the Kafka Streams DLS (classes / api) 
@@ -75,7 +75,7 @@
         * default.value.serde (`StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG`)
 * Use Java 8 Language features: `Lambda`
 
-## Custom Word Count - Use the DSL (Stream Lab 1)
+## Custom Word Count - Use the DSL (Stream Lab 1-1)
 
 ## Stream Concepts
 * Remember Kafka streams are key value pairs. Like a Java Map<Key, Value>
@@ -92,91 +92,91 @@
 * KGroupedStream.count - Count the number of records in this stream by the grouped key;
 * KTable.to - write the results back to a topic.
 
-## Kafka Stream Demo (Stream Lab 1) 
+## Kafka Stream Demo (Stream Lab 1-1) 
 
 Sidebar:
 > Using the command line tools to prepare for the demo.
 > Running the Kafka Word Count Demo
 
-## Objectives (Stream Lab 1)
+## Objectives (Stream Lab 1-1)
 
 * Use Kafka demo code to see streams in action.  
 
-![alt text](http://arondight.com/kafka/slab01-objectives.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-objectives.jpg "")
 
-## Create input and output topics (Stream Lab 1)
+## Create input and output topics (Stream Lab 1-1)
 
 * If not already running, start ZooKeeper and at least one broker
 * Create Input Topic
 * Create Output Topic 
 
-![alt text](http://arondight.com/kafka/slab01-create-topics-sh-1.jpg "")
-![alt text](http://arondight.com/kafka/slab01-create-topics-sh-2.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-create-topics-sh-1.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-create-topics-sh-2.jpg "")
  
-## Produce to the input topic (Stream Lab 1)
+## Produce to the input topic (Stream Lab 1-1)
 
-![alt text](http://arondight.com/kafka/slab01-produce.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-produce.jpg "")
 
-## Check (consume) the input (Stream Lab 1)
+## Check (consume) the input (Stream Lab 1-1)
 
-![alt text](http://arondight.com/kafka/slab01-consume-input.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-consume-input.jpg "")
 
-## Consume the output (Stream Lab 1)
+## Consume the output (Stream Lab 1-1)
 Start the output consumer first and leave it visible if possible.
 
-![alt text](http://arondight.com/kafka/slab01-consume-output.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-consume-output.jpg "")
 
-## Use the Demo code (Stream Lab 1)
+## Use the Demo code (Stream Lab 1-1)
 
-![alt text](http://arondight.com/kafka/slab01-rundemo.jpg "")
-![alt text](http://arondight.com/kafka/slab01-consume-output-results.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-rundemo.jpg "")
+![alt text](http://arondight.com/kafka/slab01-1-consume-output-results.jpg "")
 
 [Word Count demo in github](https://github.com/apache/kafka/blob/trunk/streams/examples/src/main/java/org/apache/kafka/streams/examples/wordcount/WordCountDemo.java)
 
-## Kafka Stream Example (Stream Lab 2) 
+## Kafka Stream Example (Stream Lab 1-2) 
 
 Sidebar:
 > Using the command line tools to prepare for the demo.
 > Writing word count stream.
 
-## Objectives (Stream Lab 2)
+## Objectives (Stream Lab 1-2)
 
 * Write your own word count stream.
 
-![alt text](http://arondight.com/kafka/slab02-objectives-tree.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-objectives-tree.jpg "")
 
-## Create input and output topics (Stream Lab 2)
+## Create input and output topics (Stream Lab 1-2)
 
 * If not already running, start ZooKeeper and at least one broker
 * Create Input Topic
 * Create Output Topic
 
-![alt text](http://arondight.com/kafka/slab02-create-topics-sh-1.jpg "")
-![alt text](http://arondight.com/kafka/slab02-create-topics-sh-2.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-create-topics-sh-1.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-create-topics-sh-2.jpg "")
 
-## Produce to the input topic (Stream Lab 2) 
+## Produce to the input topic (Stream Lab 1-2) 
 
-![alt text](http://arondight.com/kafka/slab02-produce.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-produce.jpg "")
 
-## Check (consume) the input (Stream Lab 2)
+## Check (consume) the input (Stream Lab 1-2)
 
-![alt text](http://arondight.com/kafka/slab02-consume-input.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-consume-input.jpg "")
 
-## Consume the output (Stream Lab 2)
+## Consume the output (Stream Lab 1-2)
 Start the output consumer first and leave it visible if possible.
 
-![alt text](http://arondight.com/kafka/slab02-consume-output.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-consume-output.jpg "")
 
-## Edit The Code 1 (Stream Lab 2)
+## Edit The Code 1 (Stream Lab 1-2)
 
-## Edit The Code 2 (Stream Lab 2)
+## Edit The Code 2 (Stream Lab 1-2)
 
-## Edit The Code 3 (Stream Lab 2)
+## Edit The Code 3 (Stream Lab 1-2)
 
-## Run The Code 3 (Stream Lab 2)
+## Run The Code 3 (Stream Lab 1-2)
 
-![alt text](http://arondight.com/kafka/slab02-consume-output-results.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-consume-output-results.jpg "")
 
-## After Lab Discuss Alternate Impls using Lambda (Stream Lab 2)
+## After Lab Discuss Alternate Impls using Lambda (Stream Lab 1-2)
 
 
