@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class WordCountAlternate1 {
+public class WordCountAlternate {
     private static final Logger logger =
             LoggerFactory.getLogger(WordCount.class);
 
