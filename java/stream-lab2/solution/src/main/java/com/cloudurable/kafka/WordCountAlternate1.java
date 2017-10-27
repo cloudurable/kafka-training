@@ -7,11 +7,17 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.kstream.KTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class WordCountAlternate1 {
+    private static final Logger logger =
+            LoggerFactory.getLogger(WordCount.class);
+
     public static void main(String[] args) {
         Properties config = new Properties();
         config.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount-application");
@@ -36,7 +42,7 @@ public class WordCountAlternate1 {
         // 6 - count occurences
 
         KTable<String, Long> wordCounts = input
-                .mapValues(str -> str.toLowerCase())
+                .mapValues(String::toLowerCase)
                 .flatMapValues(textLine -> Arrays.asList(textLine.split(" ")))
                 .selectKey((key, word) -> word)
                 .groupByKey()
@@ -48,11 +54,14 @@ public class WordCountAlternate1 {
         KafkaStreams streams = new KafkaStreams(builder, config);
         streams.start();
 
-        // print the topology
-        System.out.println(streams.toString());
+        registerCleanShutdown(streams);
+    }
 
-        // shutdown hook to correctly close the streams application
-        // the shutdown hook is just a thread, that will not be started until shutdown time
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> streams.close()));
+    private static void registerCleanShutdown(KafkaStreams streams) {
+        //Register nice shutdown of thread pool, then flush and close producer.
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Flushing and closing streams");
+            streams.close(10_000, TimeUnit.MILLISECONDS);
+        }));
     }
 }
