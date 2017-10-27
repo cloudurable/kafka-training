@@ -46,7 +46,7 @@ kafka/bin/kafka-topics.sh --list \
 
 ```sh
 $ cd ~/kafka-training/stream-lab1/bin          
-$ ./create-topic.sh                        
+$ ./create-topics.sh                        
 Created topic "streams-plaintext-input".   
 Created topic "streams-wordcount-output".   
 streams-plaintext-input

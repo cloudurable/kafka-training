@@ -110,8 +110,8 @@ Sidebar:
 * Create Input Topic
 * Create Output Topic 
 
-![alt text](http://arondight.com/kafka/slab01-create-topics-1.jpg "")
-![alt text](http://arondight.com/kafka/slab01-create-topics-2.jpg "")
+![alt text](http://arondight.com/kafka/slab01-create-topics-sh-1.jpg "")
+![alt text](http://arondight.com/kafka/slab01-create-topics-sh-2.jpg "")
  
 ## Produce to the input topic (Stream Lab 1)
 
@@ -151,8 +151,8 @@ Sidebar:
 * Create Input Topic
 * Create Output Topic
 
-![alt text](http://arondight.com/kafka/slab02-create-topics-1.jpg "")
-![alt text](http://arondight.com/kafka/slab02-create-topics-2.jpg "")
+![alt text](http://arondight.com/kafka/slab02-create-topics-sh-1.jpg "")
+![alt text](http://arondight.com/kafka/slab02-create-topics-sh-2.jpg "")
 
 ## Produce to the input topic (Stream Lab 2) 
 

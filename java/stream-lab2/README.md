@@ -47,7 +47,7 @@ Only 1 broker is necessary.
 
 ```sh
 $ cd ~/kafka-training/stream-lab2/bin          
-$ ./create-topic.sh                        
+$ ./create-topics.sh                        
 Created topic "word-count-input".   
 Created topic "word-count-output".   
 word-count-input
