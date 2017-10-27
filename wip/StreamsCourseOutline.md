@@ -141,9 +141,9 @@ Sidebar:
 
 ## Objectives (Stream Lab 2)
 
-* Write your own version of the Kafka demo.
+* Write your own word count stream.
 
-![alt text](http://arondight.com/kafka/slab02-objectives.jpg "")
+![alt text](http://arondight.com/kafka/slab02-objectives-tree.jpg "")
 
 ## Create input and output topics (Stream Lab 2)
 
