@@ -2,10 +2,10 @@
 
 ## What are Kafka Streams?
 
-##### Overview
+## Overview
 * Processing and transformation library for "streams" (lists? collections?) of Kafka data.
 
-##### Use Cases
+## Use Cases
 * Data Transformations / Manipulations
 * Data Enrichment
 * Data Monitoring
