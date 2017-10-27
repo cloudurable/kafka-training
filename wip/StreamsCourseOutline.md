@@ -178,3 +178,5 @@ Start the output consumer first and leave it visible if possible.
 ![alt text](http://arondight.com/kafka/slab02-consume-output-results.jpg "")
 
 ## After Lab Discuss Alternate Impls using Lambda (Stream Lab 2)
+
+
