@@ -169,13 +169,47 @@ Start the output consumer first and leave it visible if possible.
 
 ## Edit The Code 1 (Stream Lab 1-2)
 
+![alt text](http://arondight.com/kafka/slab01-2-code1.jpg "")
+
+Create a builder and get a KStream for the input topic.
+
 ## Edit The Code 2 (Stream Lab 1-2)
+
+![alt text](http://arondight.com/kafka/slab01-2-code2.jpg "")
+
+Map Values - Transform each entry to lowercase, since the counts are against case-insensitive words.
 
 ## Edit The Code 3 (Stream Lab 1-2)
 
-## Run The Code 3 (Stream Lab 1-2)
+![alt text](http://arondight.com/kafka/slab01-2-code3.jpg "")
+
+Flat Map Values - Transform each entry to multiple entries and flatten them out into a list.
+
+## Edit The Code 4 (Stream Lab 1-2)
+
+![alt text](http://arondight.com/kafka/slab01-2-code4.jpg "")
+
+Select Key - Determine the key for each entry in the now flattened list.
+
+## Edit The Code 5-6 (Stream Lab 1-2)
+
+![alt text](http://arondight.com/kafka/slab01-2-code5-6.jpg "")
+
+Group By Key - group the values by key allows us (prepares us) to count the number of entires for each key.
+Count - do the actual counting 
+
+## Edit The Code 7 (Stream Lab 1-2)
+
+![alt text](http://arondight.com/kafka/slab01-2-code7.jpg "")
+
+KTable.to - write the results
+Start the stream. Remember, that was just the builder, basically the streaming instructions / functions.
+
+## Run The Code (Stream Lab 1-2)
 
 ![alt text](http://arondight.com/kafka/slab01-2-consume-output-results.jpg "")
+
+Use the ide to run the main method and watch the output consumer for results.
 
 ## After Lab Discuss Alternate Impls using Lambda (Stream Lab 1-2)
 
