@@ -143,7 +143,7 @@ Sidebar:
 
 * Write your own word count stream.
 
-![alt text](http://arondight.com/kafka/slab01-2-objectives-tree.jpg "")
+![alt text](http://arondight.com/kafka/slab01-2-objectives.jpg "")
 
 ## Create input and output topics (Stream Lab 1-2)
 
