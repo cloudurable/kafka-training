@@ -255,3 +255,7 @@ java/lab9/solution/.idea/
 java/lab9/solution/.gradle/
 java/lab9/solution/build/
 
+
+.idea/
+
+streaming-data-platform.iml
