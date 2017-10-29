@@ -5,10 +5,13 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class WordCount {
     private static final Logger logger =
@@ -42,7 +45,8 @@ public class WordCount {
         //HINT     }
         //HINT };
 
-        KStream<String, String> step2Map = step1Input.mapValues(toLowerCaseValueMapper);
+        // TODO use toLowerCaseValueMapper
+        // KStream<String, String> step2Map = step1Input.mapValues(toLowerCaseValueMapper);
 
         // 3 - flatmap values split by space
         //     flatMapValues(final ValueMapper<? super V, ? extends Iterable<? extends VR>> processor);
@@ -55,7 +59,8 @@ public class WordCount {
         //HINT     }
         //HINT };
 
-        KStream<String, String> step3Flat = step2Map.flatMapValues(flatValueMapper);
+        // TODO use flatValueMapper
+        // KStream<String, String> step3Flat = step2Map.flatMapValues(flatValueMapper);
 
         // 4 - select key to apply a key
         //     selectKey(KeyValueMapper<? super K, ? super V, ? extends KR> mapper);
@@ -68,19 +73,20 @@ public class WordCount {
         //HINT     }
         //HINT };
 
-        KStream<String, String> step4Key = step3Flat.selectKey(keySelector);
+        // TODO use keySelector
+        // KStream<String, String> step4Key = step3Flat.selectKey(keySelector);
 
-        // 5 - group by key before aggregation
+        // TODO 5 - group by key before aggregation
         //     groupByKey()
-        KGroupedStream<String, String> step5Group = step4Key.groupByKey();
+        // KGroupedStream<String, String> step5Group = step4Key.groupByKey();
 
-        // 6 - count occurences
-        KTable<String, Long> step6Count = step5Group.count("Counts");
+        // TODO 6 - count occurences
+        //KTable<String, Long> step6Count = step5Group.count("Counts");
 
         // 7 - to in order to write the results back to kafka
         //TODO write to the specified topic.
         //HINT word-count-output
-        step6Count.to(Serdes.String(), Serdes.Long(), "word-count-output");
+        //step6Count.to(Serdes.String(), Serdes.Long(), "word-count-output");
 
         KafkaStreams streams = new KafkaStreams(builder, config);
         streams.start();

@@ -75,7 +75,8 @@ public class StockPriceKafkaProducer {
                 Executors.newFixedThreadPool(stockSenders.size() + 1);
 
         //Run Metrics Producer Reporter which is runnable passing it the producer.
-        executorService.submit(new MetricsProducerReporter(producer));
+        // TODO add this reporter to executorService
+        // HINT: executorService.submit(new MetricsProducerReporter(producer));
 
         //Run each stock sender in its own thread.
         stockSenders.forEach(executorService::submit);

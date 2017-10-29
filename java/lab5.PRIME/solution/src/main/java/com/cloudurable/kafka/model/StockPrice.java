@@ -1,4 +1,4 @@
-package com.cloudurable.kafka.producer.model;
+package com.cloudurable.kafka.model;
 
 import io.advantageous.boon.json.JsonFactory;
 
