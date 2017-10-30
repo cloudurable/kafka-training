@@ -1,7 +1,7 @@
 package com.cloudurable.kafka.consumer;
 
 import com.cloudurable.kafka.StockAppConstants;
-import com.cloudurable.kafka.producer.model.StockPrice;
+import com.cloudurable.kafka.model.StockPrice;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
