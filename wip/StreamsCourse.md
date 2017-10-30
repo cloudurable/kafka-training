@@ -211,16 +211,18 @@ Start the stream. Remember, that was just the builder, basically the streaming i
 
 Use the ide to run the main method and watch the output consumer for results.
 
-## After Lab Discuss Alternate Impls using Lambda (Stream Lab 1-2)
+## After Lab Discuss 
 
-![alt text](http://arondight.com/kafka/slab01-2-discuss-topics-1.jpg "")
+#### Alternate Impls using Lambda (Stream Lab 1-2)
 
-![alt text](http://arondight.com/kafka/slab01-2-discuss-topics-2.jpg "")
-
-## More Discussion - Internal Topics
+#### Internal Topics
 
 * Kafka Streams may create internal topics
     * Transformation of the "key" will create an internal topic.
     * Aggregations may save compacted data in an internal topic. 
     * Don't read/write manually to internal topics.
+
+![alt text](http://arondight.com/kafka/slab01-2-discuss-topics-1.jpg "")
+
+![alt text](http://arondight.com/kafka/slab01-2-discuss-topics-2.jpg "")
 
