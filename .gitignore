@@ -3,6 +3,8 @@ java/avro/.idea/
 java/avro/.gradle/
 java/avro/build/
 
+target
+
 java/schema-registry/.idea/
 java/schema-registry/.gradle/
 java/schema-registry/build/
