@@ -213,6 +213,7 @@ Next we will use replica-verification.sh to show max lag between replicas increa
 stop one of the brokers.
 
 #### Running replica-verification.sh while killing one broker while running StockPriceKafkaProducer
+
 ```sh
 
 ## In ~/kafka-training/lab5.4
@@ -230,7 +231,7 @@ kafka/bin/kafka-replica-verification.sh  \
 ```
 
 ## Run replica-verification to show max lag
-```
+```sh
 $ bin/replica-verification.sh
 2017-07-05 10:50:15,319: verification process is started.
 2017-07-05 10:50:21,062: max lag is 0 for partition [stock-prices,0] at offset 29559 among 3 partitions

@@ -40,10 +40,12 @@ Notice we set the Producer config property "acks" (ProducerConfig.ACKS_CONFIG) t
 
 ### Kafka Broker Config for Min.Insync.Replicas
 
-Next let's set the the min.insync.replicas to three. This will force at least three  in-sync replicas (ISRs) have to respond for our producer to get an ack from the Kafka Broker.
+Next let's set the the min.insync.replicas to three. This will force at least three  in-sync replicas (ISRs) have 
+to respond for our producer to get an ack from the Kafka Broker.
 NOTE: We have three brokers in this lab, thus all three have to be up for the Producer to work.
 
-Ensure min.insync.replicas is set to three in all of the broker config files (server-0.properties, server-1.properties and server-2.properties).
+Ensure min.insync.replicas is set to three in all of the broker config files (server-0.properties, server-1.properties
+ and server-2.properties).
 
 ## ***ACTION*** EDIT config/server-0.properties and min.insync.replicas=3
 ## ***ACTION*** EDIT config/server-1.properties and min.insync.replicas=3
@@ -77,11 +79,13 @@ The producer config ProducerConfig.ACKS_CONFIG (acks config for producer) was se
 This settings expects leader to only give successful ack after all followers ack the send was written to their log.
 The Broker config min.insync.replicas set to 3.
 At least three in-sync replicas must respond before send is considered successful.
-Since we took one broker out and only had three to begin with, it forces the send to fail since the send can not get three acks from ISRs.
+Since we took one broker out and only had three to begin with, it forces the send to fail since the send can not 
+get three acks from ISRs.
 
 ### Modify durability to leader only
 
-Change StockPriceKafkaProducer acks config to 1 `props.put(ProducerConfig.ACKS_CONFIG, “1"`, i.e., leader sends ack after write to log.
+Change StockPriceKafkaProducer acks config to 1 `props.put(ProducerConfig.ACKS_CONFIG, “1"`, i.e., leader 
+sends ack after write to log.
 From the IDE run StockPriceKafkaProducer again.
 From the terminal kill one of the Kafka Brokers.
 Notice that the StockPriceKafkaProducer now runs normally.
@@ -119,7 +123,9 @@ kafka/bin/kafka-topics.sh --describe \
     --zookeeper localhost:2181
 
 ```
-The script bin/describe-topics.sh calls kafka-topics.sh to describe the topic layout with regards to brokers and partitions.
+
+The script bin/describe-topics.sh calls kafka-topics.sh to describe the topic layout with regards to brokers 
+and partitions.
 
 ## ***ACTION*** REPEAT Last experiment, but this time run bin/describe-topics.sh and observe.
 
@@ -170,7 +176,8 @@ ____
 
 # Kafka Tutorial
 
-This comprehensive *Kafka tutorial* covers Kafka architecture and design. The *Kafka tutorial* has example Java Kafka producers and Kafka consumers. The *Kafka tutorial* also covers Avro and Schema Registry.
+This comprehensive *Kafka tutorial* covers Kafka architecture and design. The *Kafka tutorial* has example 
+Java Kafka producers and Kafka consumers. The *Kafka tutorial* also covers Avro and Schema Registry.
 
 [Complete Kafka Tutorial: Architecture, Design, DevOps and Java Examples.](http://cloudurable.com/blog/kafka-tutorial-kafka-producer-advanced-java-examples/index.html "Comprehensive Apache Kafka tutorial and training series")
 

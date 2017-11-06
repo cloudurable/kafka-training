@@ -10,16 +10,16 @@ Find the lastest version of this lab [here](https://gist.github.com/RichardHight
 
 ## Lab Batching and Compressing Kafka Records
 
-Objectives is to understand Kafka Batching. You will disable batching and observer metrics, then you will
+Objectives is to understand Kafka batching. You will disable batching and observer metrics, then you will
 reenable batching and observe metrics. Next you increase batch size and linger and observe metrics.
 In this lab, we will run a consumer to see batch sizes change from a consumer perspective as we change batching on
 the producer side. Lastly you will enable compression, and then observe results.
 
 
 ### SimpleStockPriceConsumer
-We added a SimpleStockPriceConsumer to consume StockPrices and display batch lengths for poll(). We won’t cover the
-consumer in detail just quickly, since this is a Producer lab not a Consumer lab. You will run this consumer while you
-are running the StockPriceKafkaProducer. While you are running SimpleStockPriceConsumer with various batch and linger
+We added a `SimpleStockPriceConsumer` to consume `StockPrices` and display batch lengths for poll(). We won’t cover the
+consumer in detail just quickly, since this is a `Producer` lab not a `Consumer` lab. You will run this consumer while you
+are running the `StockPriceKafkaProducer`. While you are running SimpleStockPriceConsumer with various batch and linger
 config, observe output of Producer metrics and StockPriceKafkaProducer output.
 
 
@@ -61,8 +61,8 @@ public class SimpleStockPriceConsumer {
 
 ```
 
-The SimpleStockPriceConsumer is similar to other Consumer examples we have covered so far.
-SimpleStockPriceConsumer subscribes to stock-prices topic and uses a custom serializer (StockDeserializer).
+The `SimpleStockPriceConsumer` is similar to other `Consumer` examples we have covered so far.
+`SimpleStockPriceConsumer` subscribes to `stock-prices` topic and uses a custom serializer (`StockDeserializer`).
 
 
 #### ~/kafka-training/lab5.5/src/main/java/com/cloudurable/kafka/consumer/SimpleStockPriceConsumer.java
@@ -112,7 +112,7 @@ public class SimpleStockPriceConsumer {
 
 ```
 
-The run method drains Kafka topic. It creates map of current stocks prices, and Calls displayRecordsStatsAndStocks().
+The run method drains Kafka topic. It creates map of current stocks prices, and calls `displayRecordsStatsAndStocks()`.
 
 
 #### ~/kafka-training/lab5.5/src/main/java/com/cloudurable/kafka/consumer/SimpleStockPriceConsumer.java
@@ -141,7 +141,7 @@ public class SimpleStockPriceConsumer {
 }
 ```
 
-The displayRecordsStatsAndStocks method prints out size of each partition read and total record count.
+The `displayRecordsStatsAndStocks` method prints out size of each partition read and total record count.
 Then it prints out each stock at its current price.
 
 
@@ -173,13 +173,13 @@ public class StockDeserializer implements Deserializer<StockPrice> {
 }
 ```
 
-The StockDeserializer is used to deserialize StockPrice objects from the Kafka topic.
+The `StockDeserializer` is used to deserialize StockPrice objects from the Kafka topic.
 
 ## Disable batching for the Producer
 
 Let's start by disabling batching in the StockPriceKafkaProducer.
 Setting `props.put(ProducerConfig.BATCH_SIZE_CONFIG,  0)` turns batching off.
-After you do this rerun StockPriceKafkaProducer and check Consumer stats and Producer stats.
+After you do this rerun `StockPriceKafkaProducer` and check `Consumer` stats and `Producer` stats.
 
 #### ~/kafka-training/lab5.5/src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java
 #### Kafka Producer:  StockPriceKafkaProducer disable batching
@@ -210,9 +210,10 @@ public class StockPriceKafkaProducer {
 
 ### Set batching to 16K and retest
 
-Now let's enable batching in the StockPriceKafkaProducer by setting batch size to 16K.
-Setting `props.put(ProducerConfig.BATCH_SIZE_CONFIG,  16_384)` turns batching on and allows us to batch 16K of stock price records per partition.
-After you do this rerun StockPriceKafkaProducer and check Consumer stats and Producer stats.
+Now let's enable batching in the `StockPriceKafkaProducer` by setting batch size to 16K.
+Setting `props.put(ProducerConfig.BATCH_SIZE_CONFIG,  16_384)` turns batching on and allows us to batch 16K of stock
+price records per partition.
+After you do this rerun `StockPriceKafkaProducer` and check `Consumer` stats and `Producer` stats.
 
 
 #### ~/kafka-training/lab5.5/src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java
@@ -232,7 +233,8 @@ public class StockPriceKafkaProducer {
 ### Results Set batching to 16K
 
 We saw the consumer records per poll averages around 7.5 and saw the batch size increase to 136.02 - 59% more batching.
-Look how much the request queue time shrunk! The record-send-rate is 200% faster! You can see record-send-rate in the metrics of the producer.
+Look how much the request queue time shrunk! The record-send-rate is 200% faster! You can see record-send-rate in the
+metrics of the producer.
 
 ## ***ACTION*** - EDIT StockPriceKafkaProducer.java and set batch size to 16K.
 ## ***ACTION*** - RUN StockPriceKafkaProducer, and look at the stats.
@@ -240,9 +242,10 @@ Look how much the request queue time shrunk! The record-send-rate is 200% faster
 
 ### Set batching to 16K and linger to 10ms
 
-Now let's enable linger in the StockPriceKafkaProducer by setting the linger 10 ms.
-Setting `props.put(ProducerConfig.LINGER_MS_CONFIG,  10)` turns linger on and allows us to batch for 10 ms or 16K bytes of a stock price records per partition whichever comes first.
-After you do this rerun StockPriceKafkaProducer and check Consumer stats and Producer stats.
+Now let's enable linger in the `StockPriceKafkaProducer` by setting the linger 10 ms.
+Setting `props.put(ProducerConfig.LINGER_MS_CONFIG,  10)` turns linger on and allows us to batch for 10 ms or 16K bytes
+of a stock price records per partition whichever comes first.
+After you do this rerun `StockPriceKafkaProducer` and check `Consumer` stats and `Producer` stats.
 
 
 #### ~/kafka-training/lab5.5/src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java
@@ -291,9 +294,9 @@ Which is the best for which type of use case?
 
 ### Set compression to snappy, then batching to 64K and linger to 50ms
 
-Now let's enable compression in the StockPriceKafkaProducer by setting the compression to linger.
+Now let's enable compression in the `StockPriceKafkaProducer` by setting the compression to linger.
 Setting `props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG,  "snappy)` turns compression.
-After you do this rerun StockPriceKafkaProducer and check Consumer stats and Producer stats as before.
+After you do this rerun `StockPriceKafkaProducer` and check `Consumer` stats and `Producer` stats as before.
 
 #### ~/kafka-training/lab5.5/src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java
 #### Kafka Producer:  StockPriceKafkaProducer enable compression

@@ -27,7 +27,8 @@ Then you need to subscribe the consumer to the topic you created in the producer
 ____
 ## Kafka Consumer imports and constants
 
-Next, you import the Kafka packages and define a constant for the topic and a constant to set the list of bootstrap servers that the consumer will connect.
+Next, you import the Kafka packages and define a constant for the topic and a constant to set the list of bootstrap 
+servers that the consumer will connect.
 
 #### KafkaConsumerExample.java - imports and constants
 #### ~/kafka-training/lab3/src/main/java/com/cloudurable/kafka/KafkaConsumerExample.java
@@ -104,18 +105,28 @@ public class KafkaConsumerExample {
 ```
 
 
-To create a Kafka consumer, you use `java.util.Properties` and define certain properties that we pass to the constructor of a `KafkaConsumer`.
+To create a Kafka consumer, you use `java.util.Properties` and define certain properties that we pass to the 
+constructor of a `KafkaConsumer`.
 
-Above `KafkaConsumerExample.createConsumer` sets the `BOOTSTRAP_SERVERS_CONFIG` ("bootstrap.servers") property to the list of broker addresses we defined earlier. `BOOTSTRAP_SERVERS_CONFIG` value is a comma separated list of host/port pairs that the `Consumer` uses to establish an initial connection to the Kafka cluster. Just like the producer, the consumer uses of all servers in the cluster no matter which ones we list here.
+Above `KafkaConsumerExample.createConsumer` sets the `BOOTSTRAP_SERVERS_CONFIG` ("bootstrap.servers") property 
+to the list of broker addresses we defined earlier. `BOOTSTRAP_SERVERS_CONFIG` value is a comma separated list 
+of host/port pairs that the `Consumer` uses to establish an initial connection to the Kafka cluster. Just like 
+the producer, the consumer uses of all servers in the cluster no matter which ones we list here.
 
 The `GROUP_ID_CONFIG` identifies the consumer group of this consumer.
 
-The `KEY_DESERIALIZER_CLASS_CONFIG` ("key.deserializer") is a Kafka Deserializer class for Kafka record keys that implements the Kafka Deserializer interface. Notice that we set this to `LongDeserializer` as the message ids in our example are longs.
+The `KEY_DESERIALIZER_CLASS_CONFIG` ("key.deserializer") is a Kafka Deserializer class for Kafka record keys that 
+implements the Kafka Deserializer interface. Notice that we set this to `LongDeserializer` as the message ids in 
+our example are longs.
 
-The `VALUE_DESERIALIZER_CLASS_CONFIG` ("value.deserializer") is a Kafka Serializer class for Kafka record values that implements the Kafka Deserializer interface. Notice that we set this to `StringDeserializer` as the message body in our example are strings.
+The `VALUE_DESERIALIZER_CLASS_CONFIG` ("value.deserializer") is a Kafka Serializer class for Kafka record values 
+that implements the Kafka Deserializer interface. Notice that we set this to `StringDeserializer` as the message 
+body in our example are strings.
 
-Important notice that you need to subscribe the consumer to the topic `consumer.subscribe(Collections.singletonList(TOPIC));`.
-The subscribe method takes a list of topics to subscribe to, and this list will replace the current subscriptions if any.
+Important notice that you need to subscribe the consumer to the topic 
+`consumer.subscribe(Collections.singletonList(TOPIC));`.
+The subscribe method takes a list of topics to subscribe to, and this list will replace the current subscriptions 
+if any.
 
 ## ***ACTION*** - EDIT src/main/java/com/cloudurable/kafka/KafkaConsumerExample.java and finish the createConsumer method.
 ____
@@ -167,7 +178,8 @@ The `ConsumerRecords` class is a container that holds a list of ConsumerRecord(s
 for a particular topic. There is one `ConsumerRecord` list for every topic partition
 returned by a the `consumer.poll()`.
 
-Notice if you receive records (`consumerRecords.count()!=0`), then `runConsumer` method calls `consumer.commitAsync()` which
+Notice if you receive records (`consumerRecords.count()!=0`), then `runConsumer` method calls 
+`consumer.commitAsync()` which
 commit offsets returned on the last call to consumer.poll(...) for all the subscribed list of topic partitions.
 
 ## ***ACTION*** - EDIT src/main/java/com/cloudurable/kafka/KafkaConsumerExample.java and finish the runConsumer method.
@@ -177,12 +189,14 @@ commit offsets returned on the last call to consumer.poll(...) for all the subsc
 
 ### Kafka Consumer Poll method
 
-The poll method returns fetched records based on current partition offset. The poll method is a blocking method waiting for specified time in seconds. If no records are available after the time period specified, the poll method returns an empty ConsumerRecords.
+The poll method returns fetched records based on current partition offset. The poll method is a blocking method 
+waiting for specified time in seconds. If no records are available after the time period specified, the poll method 
+returns an empty ConsumerRecords.
 
 When new records become available, the poll method returns straight away.
 
-You can can control the maximum records returned by the poll() with `props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 100);`. T
-he poll method is not thread safe and is not meant to get called from multiple threads.
+You can can control the maximum records returned by the poll() with `props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 100);`. 
+The poll method is not thread safe and is not meant to get called from multiple threads.
 
 ## ***ACTION*** - EDIT src/main/java/com/cloudurable/kafka/KafkaConsumerExample.java and edit the createConsumer method to add `props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 100)`.
 ## ***ACTION*** - RE RUN Producer from last lab to create some more records.
@@ -364,7 +378,8 @@ Modify the consumer, so each consumer processes will have a unique group id.
 
 Stop all consumers and producers processes from the last run.
 
-Then execute the consumer example three times from your IDE. Then change producer to send five records instead of 25. Then run the producer once from your IDE.  What happens? The consumers should each get a copy of the messages.
+Then execute the consumer example three times from your IDE. Then change producer to send five records instead of 25. 
+Then run the producer once from your IDE.  What happens? The consumers should each get a copy of the messages.
 
 First, let's modify the Consumer to make their group id unique as follows:
 
@@ -461,9 +476,13 @@ ___
 ### Conclusion Kafka Consumer example
 
 
-You created a simple example that creates a *Kafka consumer* to consume messages from the Kafka Producer you created in the last lab. We used the replicated Kafka topic from producer lab. You created a *Kafka Consumer* that uses the topic to receive messages. The *Kafka consumer* uses the `poll` method to get N number of records.
+You created a simple example that creates a *Kafka consumer* to consume messages from the Kafka Producer you created 
+in the last lab. We used the replicated Kafka topic from producer lab. You created a *Kafka Consumer* that uses the 
+topic to receive messages. The *Kafka consumer* uses the `poll` method to get N number of records.
 
-*Consumers* in the same group divide up and share partitions as we demonstrated by running three consumers in the same group and one producer. Each consumer groups gets a copy of the same data. More precise, each consumer group really has a unique set of offset/partition pairs per.
+*Consumers* in the same group divide up and share partitions as we demonstrated by running three consumers in the same 
+group and one producer. Each consumer groups gets a copy of the same data. More precise, each consumer group really 
+has a unique set of offset/partition pairs per.
 
 ___
 ### Review Kafka Consumer
@@ -507,4 +526,8 @@ No
 
 #### About Cloudurable
 We hope you enjoyed this article. Please provide [feedback](http://cloudurable.com/contact/index.html).
-Cloudurable provides [Kafka training](http://cloudurable.com/kafka-training/index.html "Apache Kafka Training Course, Instructor led, onsite training"), [Kafka consulting](http://cloudurable.com/kafka-aws-consulting/index.html), [Kafka support](http://cloudurable.com/subscription_support/index.html) and helps [setting up Kafka clusters in AWS](http://cloudurable.com/services/index.html).
+Cloudurable provides [Kafka training](http://cloudurable.com/kafka-training/index.html 
+"Apache Kafka Training Course, Instructor led, onsite training"), 
+[Kafka consulting](http://cloudurable.com/kafka-aws-consulting/index.html), 
+[Kafka support](http://cloudurable.com/subscription_support/index.html) and helps 
+[setting up Kafka clusters in AWS](http://cloudurable.com/services/index.html).

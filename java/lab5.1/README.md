@@ -1,11 +1,15 @@
 # Lab 5.1: Creating Advanced Kafka Producers in Java
 
-Welcome to the session 5 lab 1. The work for this lab is done in `~/kafka-training/lab5.1`.
+Welcome to the session 5 lab 1. The work for this lab is done in
+`~/kafka-training/lab5.1`.
+
 In this lab, you are going to create an advanced Java Kafka consumer.
 
-Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
+Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or
+changes to this lab.
 
-Find the lastest version of this lab [here](https://gist.github.com/RichardHightower/d6648b2812d3eefb9bc46752c09c5ca6).
+Find the lastest version of this lab
+[here](https://gist.github.com/RichardHightower/d6648b2812d3eefb9bc46752c09c5ca6).
 
 
 ### Kafka Producers
@@ -15,7 +19,8 @@ The Kafka client API for Producers are thread safe.  A Kafka *Producer* has a po
 buffer that holds to-be-sent records.
 The producer has background, I/O threads for turning records into request bytes and
 transmitting requests to Kafka cluster.
-The producer must be closed to not leak resources, i.e., connections, thread pools, buffers.
+The producer must be closed to not leak resources, i.e., connections, thread pools,
+buffers.
 
 ### Kafka Producer Send, Acks and Buffers
 
@@ -156,9 +161,9 @@ StockPrice is just a POJO.
 ### StockPriceKafkaProducer
 
 StockPriceKafkaProducer import classes and sets up a logger. It has a createProducer method to create a KafkaProducer instance.
-It has a setupBootstrapAndSerializers to initialize bootstrap servers, client id, key serializer and custom serializer
-(StockPriceSerializer). It has a main() method that creates the producer, creates a StockSender list passing each instance
-the producer,  and it creates a thread pool, so every stock sender gets it own thread, and then it runs each stockSender
+It has a `setupBootstrapAndSerializers` to initialize bootstrap servers, client id, key serializer and custom serializer
+(StockPriceSerializer). It has a `main()` method that creates the producer, creates a `StockSender` list passing each instance
+the producer,  and it creates a thread pool, so every stock sender gets it own thread, and then it runs each `stockSender`
 in its own thread using the thread pool.
 
 
@@ -197,7 +202,7 @@ public class StockPriceKafkaProducer {
 ```
 
 The above code imports Kafka classes and sets up the logger and calls createProducer
-to create a KafkaProducer. The createProducer() calls setupBoostrapAndSerializers().
+to create a KafkaProducer. The `createProducer()` calls `setupBoostrapAndSerializers()`.
 
 ## ***ACTION*** - EDIT src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java and follow the instructions in createProducer.
 
@@ -224,8 +229,8 @@ public class StockPriceKafkaProducer {
 }
 ```
 
-The setupBootstrapAndSerializers method initializes bootstrap servers, client id, key serializer and
-custom serializer (StockPriceSerializer). The StockPriceSerializer will serialize StockPrice into bytes.
+The `setupBootstrapAndSerializers` method initializes bootstrap servers, client id, key serializer and
+custom serializer (StockPriceSerializer). The `StockPriceSerializer` will serialize `StockPrice` into bytes.
 
 ## ***ACTION*** - EDIT src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java and follow the instructions in setupBootstrapAndSerializers.
 
@@ -256,8 +261,10 @@ public class StockPriceKafkaProducer {
 }
 ```
 
-The StockPriceKafkaProducer main method creates a Kafka producer, then creates StockSender list passing each instance the producer.
-It then creates a thread pool (executorService) and runs each StockSender, which is runnable, in its own thread from the thread pool.
+The `StockPriceKafkaProducer` main method creates a Kafka producer, then creates StockSender list passing each
+instance the producer.
+It then creates a thread pool (`executorService`) and runs each `StockSender`, which is runnable, in its own thread
+from the thread pool.
 
 ## ***ACTION*** - EDIT src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java and follow the instructions in main.
 
@@ -357,10 +364,12 @@ public class StockAppConstants {
 
 ### StockSender
 
-The StockSender uses the Kafka Producer we created earlier. The StockSender generates random stock prices for a given StockPrice name.
-The StockSender is Runnable and runs in its own thread. There is one thread per StockSender.
-The StockSender is used to show using KafkaProducer from many threads.
-The StockSender Delays random time between delayMin and delayMax, then sends a random StockPrice between stockPriceHigh and stockPriceLow.
+The StockSender uses the Kafka Producer we created earlier. The `StockSender` generates random stock prices for a given
+`StockPrice` name.
+The `StockSender` is `Runnable` and runs in its own thread. There is one thread per `StockSender`.
+The `StockSender` is used to show using `KafkaProducer` from many threads.
+The `StockSender` delays a random time duration between delayMin and delayMax, then sends a random `StockPrice` between
+`stockPriceHigh` and `stockPriceLow`.
 
 #### ~/kafka-training/lab5.1/solution/src/main/java/com/cloudurable/kafka/producer/StockSender.java
 #### Kafka Producer:  StockSender imports, Runnable
@@ -384,8 +393,8 @@ public class StockSender implements Runnable{
 }
 ```
 
-The StockSender imports Kafka Producer, ProducerRecord, RecordMetadata, and StockPrice.
-It implements Runnable, and can be submitted to ExecutionService (thread pool).
+The `StockSender` imports Kafka Producer, `ProducerRecord`, `RecordMetadata`, and `StockPrice`.
+It implements `Runnable`, and can be submitted to an `ExecutionService` (thread pool).
 
 #### ~/kafka-training/lab5.1/solution/src/main/java/com/cloudurable/kafka/producer/StockSender.java
 #### Kafka Producer:  StockSender fields
@@ -415,7 +424,7 @@ public class StockSender implements Runnable{
 }
 ```
 
-The StockSender takes a topic, high & low stockPrice, producer, and delay min & max.
+The `StockSender` takes a topic, high & low stockPrice, producer, and delay min & max.
 
 
 #### ~/kafka-training/lab5.1/solution/src/main/java/com/cloudurable/kafka/producer/StockSender.java
@@ -450,7 +459,8 @@ public class StockSender implements Runnable{
 }
 ```
 
-The StockSender run methods in a forever loop creates random record, sends the record, waits random time, and then repeats.
+The StockSender run methods in a forever loop creates random record, sends the record, waits random time,
+and then repeats.
 
 
 #### ~/kafka-training/lab5.1/solution/src/main/java/com/cloudurable/kafka/producer/StockSender.java
@@ -483,7 +493,8 @@ public class StockSender implements Runnable{
 }
 ```
 
-The StockSender createRandomRecord method uses randomIntBetween. The createRandomRecord creates StockPrice and then wraps StockPrice in ProducerRecord.
+The StockSender createRandomRecord method uses randomIntBetween. The createRandomRecord creates StockPrice and then
+wraps StockPrice in ProducerRecord.
 
 #### ~/kafka-training/lab5.1/solution/src/main/java/com/cloudurable/kafka/producer/StockSender.java
 #### Kafka Producer:  StockSender displayRecordMetaData
@@ -509,8 +520,10 @@ public class StockSender implements Runnable{
 }
 ```
 
-Every 100 records StockSender displayRecordMetaData method gets called, which prints out record info, and recordMetadata info:
-key, JSON value, topic, partition, offset, time. The displayRecordMetaData uses the Future from the call to producer.send().
+Every 100 records StockSender displayRecordMetaData method gets called, which prints out record info, and
+`recordMetadata` info:
+key, JSON value, topic, partition, offset, time. The `displayRecordMetaData` uses the `Future` from the call
+to `producer.send()`.
 
 ## ***ACTION*** - EDIT src/main/java/com/cloudurable/kafka/producer/StockSender.java and follow the instructions.
 
@@ -518,7 +531,7 @@ key, JSON value, topic, partition, offset, time. The displayRecordMetaData uses 
 ### Running the example
 
 To run the example, you need to run ZooKeeper, then run the three Kafka Brokers.
-Once that is running, you will need to run create-topic.sh. And lastly run the StockPriceKafkaProducer
+Once that is running, you will need to run create-topic.sh. And lastly run the `StockPriceKafkaProducer`
 from the IDE.
 
 First run ZooKeeper.
