@@ -2,12 +2,19 @@
 # LAB 2 Writing a Kafka Producer in Java
 
 Welcome to the session 2 lab. The work for this lab is done in `~/kafka-training/lab2`.
-Refer to
+
 In this lab, you are going to create simple Java Kafka producer.
-You create a new replicated Kafka topic called `my-example-topic`, then you create a Kafka
+You create a new replicated Kafka topic called `my-example-topic`, then you create
+a Kafka
 producer that uses this topic to send records. You will send records with the
 Kafka producer. You will send records synchronously.
 Later, you will send records asynchronously.
+
+To start Kafka and ZooKeeper use the same technique you did in lab1.2. You can use the start up
+scripts that you wrote in lab1.2.
+
+
+
 
 ____
 ## Create Replicated Kafka Topic
@@ -75,7 +82,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.apache.kafka:kafka-clients:0.10.2.0'
+    compile 'org.apache.kafka:kafka-clients:1.0.0'
     compile 'ch.qos.logback:logback-classic:1.2.2'
 }
 
@@ -83,7 +90,7 @@ dependencies {
 
 
 
-Notice that we import the jar file `kafka-clients:0.10.2.0`.
+Notice that we import the jar file `kafka-clients:1.0.0`.
 Apache Kafka uses `sl4j` so to setup logging we use logback (`ch.qos.logback:logback-classic:1.2.2`).
 
 
@@ -93,14 +100,18 @@ ____
 
 To create a Kafka producer, you will need to pass it a list of bootstrap servers (a list of Kafka brokers).
 You will also specify a `client.id` that uniquely identifies this Producer client.
-In this example, we are going to send messages with ids. The message body is a string, so we need a record value serializer as we will send the message body in the Kafka's records value field.
-The message id (long), will be sent as the Kafka's records key. You will need to specify a Key serializer and a value serializer, which Kafka will use to encode the message id as a Kafka record key, and the message body as the Kafka record value.
+In this example, we are going to send messages with ids. The message body is a string, so we need a record
+value serializer as we will send the message body in the Kafka's records value field.
+The message id (long), will be sent as the Kafka's records key. You will need to specify a Key serializer
+and a value serializer, which Kafka will use to encode the message id as a Kafka record key, and the message
+body as the Kafka record value.
 
 ____
 ## Common Kafka imports and constants
 
 
-Next, we will import the Kafka packages and define a constant for the topic and a constant to define the list of bootstrap servers that the producer will connect.
+Next, we will import the Kafka packages and define a constant for the topic and a constant to define the list
+of bootstrap servers that the producer will connect.
 
 #### KafkaProducerExample.java - imports and constants
 #### ~/kafka-training/lab2/src/main/java/com/cloudurable/kafka/KafkaProducerExample.java
@@ -159,16 +170,27 @@ public class KafkaProducerExample {
     }
 
 ```
-To create a Kafka producer, you use `java.util.Properties` and define certain properties that we pass to the constructor of a `KafkaProducer`.
+To create a Kafka producer, you use `java.util.Properties` and define certain properties that we pass to the
+constructor of a `KafkaProducer`.
 
-Above `KafkaProducerExample.createProducer` sets the `BOOTSTRAP_SERVERS_CONFIG` ("bootstrap.servers) property to the list of broker addresses we defined earlier. `BOOTSTRAP_SERVERS_CONFIG` value is a comma separated list of host/port pairs that the `Producer` uses to establish an initial connection to the Kafka cluster. The producer uses of all servers in the cluster no matter which ones we list here.
-This list only specifies the initial Kafka brokers used to discover the full set of servers of the Kafka cluster. If a server in this list is down, the producer will just go to the next broker in the list to discover the full topology of the Kafka cluster.
+Above `KafkaProducerExample.createProducer` sets the `BOOTSTRAP_SERVERS_CONFIG` ("bootstrap.servers) property to
+the list of broker addresses we defined earlier. `BOOTSTRAP_SERVERS_CONFIG` value is a comma separated list of
+ host/port pairs that the `Producer` uses to establish an initial connection to the Kafka cluster. The producer
+ uses of all servers in the cluster no matter which ones we list here.
+This list only specifies the initial Kafka brokers used to discover the full set of servers of the Kafka cluster.
+If a server in this list is down, the producer will just go to the next broker in the list to discover the full
+topology of the Kafka cluster.
 
-The `CLIENT_ID_CONFIG` ("client.id") is an id to pass to the server when making requests so the server can track the source of requests beyond just IP/port by passing a producer name for things like server-side request logging.
+The `CLIENT_ID_CONFIG` ("client.id") is an id to pass to the server when making requests so the server can track
+the source of requests beyond just IP/port by passing a producer name for things like server-side request logging.
 
-The `KEY_SERIALIZER_CLASS_CONFIG` ("key.serializer") is a Kafka Serializer class for Kafka record keys that implements the Kafka Serializer interface. Notice that we set this to `LongSerializer` as the message ids in our example are longs.
+The `KEY_SERIALIZER_CLASS_CONFIG` ("key.serializer") is a Kafka Serializer class for Kafka record keys that
+implements the Kafka Serializer interface. Notice that we set this to `LongSerializer` as the message ids in
+our example are longs.
 
-The `VALUE_SERIALIZER_CLASS_CONFIG` ("value.serializer") is a Kafka Serializer class for Kafka record values that implements the Kafka Serializer interface. Notice that we set this to `StringSerializer` as the message body in our example are strings.
+The `VALUE_SERIALIZER_CLASS_CONFIG` ("value.serializer") is a Kafka Serializer class for Kafka record values
+that implements the Kafka Serializer interface. Notice that we set this to `StringSerializer` as the message body
+ in our example are strings.
 
 
 ## ***ACTION*** - EDIT KafkaProducerExample.java and finish createProducer.
@@ -215,14 +237,17 @@ public class KafkaProducerExample {
 
 
 ```
-The above just iterates through a for loop, creating a `ProducerRecord` sending an example message (`"Hello Mom " + index`) as
-the `record value` and the for loop `index` as the `record key`. For each iteration, `runProducer` calls the `send` method
+The above just iterates through a for loop, creating a `ProducerRecord` sending an example message
+(`"Hello Mom " + index`) as
+the `record value` and the for loop `index` as the `record key`. For each iteration, `runProducer` calls the
+`send` method
 of the `producer` (`RecordMetadata metadata = producer.send(record).get()`). The send method returns a Java `Future`.
 
-The response RecordMetadata has 'partition' where the record was written and the 'offset' of the record in that partition.
+The response RecordMetadata has 'partition' where the record was written and the 'offset' of the record in
+that partition.
 
-Notice the call to flush and close. Kafka will auto flush on its own, but you can also call flush explicitly which will
-send the accumulated records now.  It is polite to close the connection when we are done.
+Notice the call to flush and close. Kafka will auto flush on its own, but you can also call flush explicitly
+ which will send the accumulated records now.  It is polite to close the connection when we are done.
 
 ## ***ACTION*** - EDIT KafkaProducerExample.java and finish runProducer.
 
@@ -303,13 +328,24 @@ Notice the use of a CountDownLatch so we can send all N messages and then wait f
 ____
 ### Async Interface Callback and Async Send Method
 
-Kafka defines a [Callback](https://kafka.apache.org/0100/javadoc/org/apache/kafka/clients/producer/Callback.html) interface that you use for asynchronous operations.  The callback interface allows code to execute when the request is complete. The callback executes in a background I/O thread so it should be fast (don't block it). The `onCompletion(RecordMetadata metadata, Exception exception)` gets called when the asynchronous operation completes. The [`metadata`](https://kafka.apache.org/0100/javadoc/org/apache/kafka/clients/producer/RecordMetadata.html) gets set (not null) if the operation was a success, and the exception gets set (not null) if the operation had an error.
+Kafka defines a [Callback](https://kafka.apache.org/0100/javadoc/org/apache/kafka/clients/producer/Callback.html)
+interface that you use for asynchronous operations.  The callback interface allows code to execute when the request
+is complete. The callback executes in a background I/O thread so it should be fast (don't block it).
+The `onCompletion(RecordMetadata metadata, Exception exception)` gets called when the asynchronous operation completes.
+The [`metadata`](https://kafka.apache.org/0100/javadoc/org/apache/kafka/clients/producer/RecordMetadata.html) gets set
+(not null) if the operation was a success, and the exception gets set (not null) if the operation had an error.
 
 
 
-The async `send` method is used to send a record to a topic, and the provided callback gets called when the `send` is acknowledged. The `send` method is asynchronous, and when called returns immediately once the record gets stored in the buffer of records waiting to post to the Kafka broker. The `send` method allows sending many records in parallel without blocking to wait for the response after each one.
+The async `send` method is used to send a record to a topic, and the provided callback gets called when the `send`
+is acknowledged. The `send` method is asynchronous, and when called returns immediately once the record gets
+stored in the buffer of records waiting to post to the Kafka broker. The `send` method allows sending many records
+in parallel without blocking to wait for the response after each one.
 
-> Since the send call is asynchronous it returns a Future for the RecordMetadata that will be assigned to this record. Invoking get() on this future will block until the associated request completes and then return the metadata for the record or throw any exception that occurred while sending the record. [KafkaProducer](https://kafka.apache.org/0100/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html)
+> Since the send call is asynchronous it returns a Future for the RecordMetadata that will be assigned to this
+record. Invoking get() on this future will block until the associated request completes and then return the metadata
+for the record or throw any exception that occurred while sending the record.
+[KafkaProducer](https://kafka.apache.org/0100/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html)
 
 
 ___
@@ -330,7 +366,10 @@ The callback gets notified when the request is complete.
 
 #### What will happen if the first server is down in the bootstrap list?  Can the producer still connect to the other Kafka brokers in the cluster?
 
-The producer will try to contact the next broker in the list. Any of the brokers once contacted, will let the producer know about the entire Kafka cluster. The Producer will connect as long as at least one of the brokers in the list is running. If you have 100 brokers and two of the brokers in a list of three servers in the bootstrap list are down,  the producer can still use the 98 remaining brokers.
+The producer will try to contact the next broker in the list. Any of the brokers once contacted, will let the
+producer know about the entire Kafka cluster. The Producer will connect as long as at least one of the brokers
+in the list is running. If you have 100 brokers and two of the brokers in a list of three servers in the bootstrap
+list are down,  the producer can still use the 98 remaining brokers.
 
 #### When would you use Kafka async send vs. sync send?
 

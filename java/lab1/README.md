@@ -4,20 +4,23 @@
 
 Let's do a simple lab showing how to use producers and consumers from the Kafka command line.
 
-These files should be setup on your virtual box image. You do the work for this lab in the directory `~/kafka-training/lab1`.
-You can find the latest versions of the instructions for Lab1 [here](https://gist.github.com/RichardHightower/37433e766e5915aae3048ade08b3db56).
+These files should be setup on your virtual box image. You do the work for this lab
+in the directory `~/kafka-training/lab1`.
+You can find the latest versions of the instructions for
+Lab1 [here](https://gist.github.com/RichardHightower/37433e766e5915aae3048ade08b3db56).
 
-If you prefer to run the examples on another OS, e.g., OSX, please refer to the [Kafka course notes](https://goo.gl/a4kk5b)
+If you prefer to run the examples on another OS, e.g., OSX, please refer to the
+[Kafka course notes](https://goo.gl/a4kk5b)
 for instructions on how to download labs and run them on OSX.
 
-Note: later versions will likely work, but this was example was done with 0.10.2.x.
-The Kafka 0.11.0 release did not seem important or different enough to upgrade.
-There is a release due in July, which is mentioned in the course, which is important enough
-to upgrade but as of July 10th, 2017, it is not out yet.
+Note: later versions will likely work, but this was example was done with 1.0.0.0.
+The Kafka 1.0.0.0 just came out in November 2017.
 
-If you are using the Virtual Box image of Linux, that we unzipped the Kafka download
+If you are using the Virtual Box image of Linux, we unzipped the Kafka download
 and put it in `~/kafka-training/`, and then renamed the Kafka install folder to
 `kafka`. Please do the same if you decide to install Kafka yourself.
+
+***You should be using the VirtualBox image.***
 
 Next, we are going to run *ZooKeeper* and then run *Kafka Server/Broker*.
 We will use some Kafka command line utilities, to create Kafka topics,
@@ -33,7 +36,8 @@ Kafka relies on ZooKeeper. To keep things simple, we will use a single ZooKeeper
 Kafka provides a startup script for ZooKeeper called `zookeeper-server-start.sh`
 which is located at `~/kafka-training/kafka/bin/zookeeper-server-start.sh`.
 
-The Kafka distribution also provide a ZooKeeper config file which is setup to run single node.
+The Kafka distribution also provide a ZooKeeper config file which is setup to
+run single node.
 
 To run ZooKeeper, we create this script in `kafka-training` and run it.
 
@@ -65,10 +69,10 @@ Wait about 30 seconds or so for ZooKeeper to startup.
 
 ### Run Kafka Server
 
-[Kafka also provides a startup script for the Kafka server](http://cloudurable.com/blog/kafka-broker-startup/index.html) called `kafka-server-start.sh`
-which is located at `~/kafka-training/kafka/bin/kafka-server-start.sh`.
+[Kafka also provides a startup script for the Kafka server](http://cloudurable.com/blog/kafka-broker-startup/index.html)
+called `kafka-server-start.sh` which is located at `~/kafka-training/kafka/bin/kafka-server-start.sh`.
 
-The Kafka distribution also provide a Kafka config file which is setup to run Kafka single node,
+The Kafka distribution also provides a Kafka config file which is setup to run Kafka single node,
 and points to ZooKeeper running on `localhost:2181`.
 
 To run Kafka, we created the script `run-kafka.sh` in `kafka-training`.
@@ -348,7 +352,9 @@ We could use only one partition or start up 13 consumers.
 
 ### More about Kafka
 
-To learn  about Kafka see [Kafka architecture](http://cloudurable.com/blog/kafka-architecture/index.html), [Kafka topic architecture](http://cloudurable.com/blog/kafka-architecture-topics/index.html) and [Kafka producer architecture](http://cloudurable.com/blog/kafka-architecture-producers/index.html).
+To learn  about Kafka see [Kafka architecture](http://cloudurable.com/blog/kafka-architecture/index.html), 
+[Kafka topic architecture](http://cloudurable.com/blog/kafka-architecture-topics/index.html) and 
+[Kafka producer architecture](http://cloudurable.com/blog/kafka-architecture-producers/index.html).
 
 <br />
 
@@ -376,4 +382,7 @@ To learn  about Kafka see [Kafka architecture](http://cloudurable.com/blog/kafka
 
 #### About Cloudurable
 We hope you enjoyed this article. Please provide [feedback](http://cloudurable.com/contact/index.html).
-Cloudurable provides [Kafka training](http://cloudurable.com/kafka-training/index.html "Onsite, Instructor-Led, Kafka Training"), [Kafka consulting](http://cloudurable.com/kafka-aws-consulting/index.html), [Kafka support](http://cloudurable.com/subscription_support/index.html) and helps [setting up Kafka clusters in AWS](http://cloudurable.com/services/index.html).
+Cloudurable provides [Kafka training](http://cloudurable.com/kafka-training/index.html 
+"Onsite, Instructor-Led, Kafka Training"), [Kafka consulting](http://cloudurable.com/kafka-aws-consulting/index.html), 
+[Kafka support](http://cloudurable.com/subscription_support/index.html) and helps 
+[setting up Kafka clusters in AWS](http://cloudurable.com/services/index.html).

@@ -6,7 +6,9 @@ Welcome to session 1 lab 2.
 The work for this lab is done in `~/kafka-training/lab1.2`.
 This Kafka lab picks up right where the first lab left off.
 The first lab has instructions on how to run ZooKeeper and use Kafka utils.
-Please refer to Kafka [course notes](https://gist.github.com/RichardHightower/c6fe36856a581728b4187e4d38232903) for any changes. The latest version of this lab instructions can be found [here](https://gist.github.com/RichardHightower/42c78c0764990a76b8ed4b20e479fe98).
+Please refer to Kafka [course notes](https://gist.github.com/RichardHightower/c6fe36856a581728b4187e4d38232903)
+for any changes. The latest version of this lab instructions can be found
+[here](https://gist.github.com/RichardHightower/42c78c0764990a76b8ed4b20e479fe98).
 
 In this lab, we are going to run many Kafka Nodes on our development machine so that you
 will need at least 16 GB of RAM for local dev machine. You can run just two servers if
@@ -22,20 +24,27 @@ If not already running, then start up ZooKeeper (`./run-zookeeper.sh` from the f
 Also, shut down Kafka from the first tutorial (use kill or CTRL-C from the terminal which is running Kafka).
 
 Next, you need to copy server properties for three brokers
-(detailed instructions to follow). Then we will modify these Kafka server properties to add unique Kafka ports, Kafka log locations, and unique Broker ids. Then we will create three scripts to start these servers up using these properties, and then start the servers. Lastly, we create replicated topic and use it to demonstrate Kafka consumer failover, and Kafka broker failover.
+(detailed instructions to follow). Then we will modify these Kafka server properties to add unique
+Kafka ports, Kafka log locations, and unique Broker ids. Then we will create three scripts to start these
+servers up using these properties, and then start the servers. Lastly, we create replicated topic and use it
+to demonstrate Kafka consumer failover, and Kafka broker failover.
 
 
 <br />
 
 ### Create three new Kafka server-n.properties files
 
-In this section, we will copy the existing Kafka `server.properties` to `server-0.properties`, `server-1.properties`, and `server-2.properties`.
+In this section, we will copy the existing Kafka `server.properties` to `server-0.properties`, `server-1.properties`,
+and `server-2.properties`.
 Then we change `server-0.properties` to set `log.dirs` to `“./logs/kafka-0`.
-Then we modify `server-1.properties` to set `port` to `9093`, broker `id` to `1`, and `log.dirs` to `“./logs/kafka-1”`.
+Then we modify `server-1.properties` to set `port` to `9093`, broker `id` to `1`, and `log.dirs`
+to `“./logs/kafka-1”`.
 Lastly modify  `server-2.properties` to use `port` 9094, broker `id` 2, and `log.dirs` `“./logs/kafka-2”`.
 
+You modify the port by modifying the listeners `listeners=PLAINTEXT://localhost:9092`.
 
-## ***ACTION*** COPY server.properites file three times to server-0.properties, server-1.properties and server-2.properties as follows:
+## ***ACTION*** COPY server.properites file three times to server-0.properties, server-1.properties and
+server-2.properties as follows:
 
 #### Copy server properties file
 ```sh
@@ -63,7 +72,7 @@ Leave the rest of the file the same. Make sure `log.dirs` is only defined once.
 
 ```sh
 broker.id=0
-port=9092
+listeners=PLAINTEXT://localhost:9092
 log.dirs=./logs/kafka-0
 ...
 ```
@@ -72,13 +81,13 @@ log.dirs=./logs/kafka-0
 
 ## ***ACTION*** EDIT `~/kafka-training/lab1.2/config/server-1.properties` as follows:
 
-With your favorite text editor change `log.dirs`, `broker.id` and and `log.dirs` of `server-1.properties` as follows.
+With your favorite text editor change `log.dirs`, `broker.id` and and `log.dirs` of `server-1.properties` as follows:
 
 #### ~/kafka-training/lab1.2/config/server-1.properties
 
 ```sh
 broker.id=1
-port=9093
+listeners=PLAINTEXT://localhost:9093
 log.dirs=./logs/kafka-1
 ...
 ```
@@ -88,13 +97,13 @@ log.dirs=./logs/kafka-1
 
 ## ***ACTION*** EDIT `~/kafka-training/lab1.2/config/server-2.properties` as follows:
 
-With your favorite text editor change `log.dirs`, `broker.id` and and `log.dirs` of `server-2.properties` as follows.
+With your favorite text editor change `log.dirs`, `broker.id` and and `log.dirs` of `server-2.properties` as follows:
 
 #### ~/kafka-training/lab1.2/config/server-2.properties
 
 ```sh
 broker.id=2
-port=9094
+listeners=PLAINTEXT://localhost:9094
 log.dirs=./logs/kafka-2
 ...
 ```
@@ -274,7 +283,10 @@ kafka/bin/kafka-console-consumer.sh \
 
 <br />
 
-Notice that a list of Kafka servers is passed to `--bootstrap-server` parameter. Only, two of the three servers get passed that we ran earlier. Even though only one broker is needed,  the consumer client will learn about the other broker from just one server. Usually, you list multiple brokers in case there is an outage so that the client can connect.
+Notice that a list of Kafka servers is passed to `--bootstrap-server` parameter. Only, two of the three servers
+get passed that we ran earlier. Even though only one broker is needed,  the consumer client will learn about
+the other broker from just one server. Usually, you list multiple brokers in case there is an outage so that
+the client can connect.
 
 Now we just run this script to start the consumer.
 
@@ -448,7 +460,8 @@ Stop the producers and the consumers from before, but leave Kafka and ZooKeeper 
 
 Now let's modify the `start-consumer-console-replicated.sh` script to add a Kafka *consumer group*.
 We want to put all of the consumers in same *consumer group*.
-This way the consumers will share the messages as each consumer in the *consumer group* will get its share of partitions.
+This way the consumers will share the messages as each consumer in the *consumer group* will get its share
+of partitions.
 
 
 ## ***ACTION*** EDIT `~/kafka-training/lab1.2/start-consumer-console-replicated.sh` and add `--consumer-property group.id=mygroup` as follows:
@@ -469,7 +482,8 @@ kafka/bin/kafka-console-consumer.sh \
 
 <br />
 
-Notice that the script is the same as before except we added `--consumer-property group.id=mygroup` which will put every consumer that runs with this script into the `mygroup` consumer group.
+Notice that the script is the same as before except we added `--consumer-property group.id=mygroup` which
+will put every consumer that runs with this script into the `mygroup` consumer group.
 
 Now we just run the producer and three consumers.
 

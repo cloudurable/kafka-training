@@ -624,7 +624,7 @@ For the config only the broker id and log directory changes.
 #### config/server-0.properties
 ```sh
 broker.id=0
-port=9092
+listeners=PLAINTEXT://localhost:9092
 log.dirs=./logs/kafka-0
 ...
 ```
