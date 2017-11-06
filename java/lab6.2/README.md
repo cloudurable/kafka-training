@@ -27,4 +27,18 @@ Use the slides for Session 6 as a guide.
 
 It should all run. Stop consumer and producer when finished.
 
+## Auto offset reset config
+
+What happens when you seek to an invalid location is controlled by consumer based configuration property:
+
+```
+ConsumerConfig.AUTO_OFFSET_RESET_CONFIG = "auto.offset.reset"
+
+Valid values: "latest", "earliest", "none"
+```
+
+* latest: automatically reset the offset to the latest offset
+* earliest: automatically reset the offset to the earliest offset
+* none: throw exception to the consumer if no previous offset is found for the consumer's group anything else: throw exception to the consumer.
+
 

@@ -501,7 +501,9 @@ However many you set in with `props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 
 that you pass to `KafkaConsumer`.
 
 #### Does a call to poll ever get records from two different partitions?
-No
+
+Yes. Records come from one server but a server can be a leader for many partitions. 
+So a server can serve up records from many partitions on poll.
 
 <br />
 <br />

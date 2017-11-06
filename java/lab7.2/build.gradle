@@ -11,11 +11,11 @@ sourceCompatibility = 1.8
 
 //TODO  look at dependencies
 dependencies {
-    compile "org.apache.avro:avro:1.8.1"
+    compile "org.apache.avro:avro:1.8.2"
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     testCompile 'junit:junit:4.11'
     compile 'org.apache.kafka:kafka-clients:1.0.0'
-    compile 'io.confluent:kafka-avro-serializer:3.2.1'
+    compile 'io.confluent:kafka-avro-serializer:3.3.0'
 }
 repositories {
     jcenter()
