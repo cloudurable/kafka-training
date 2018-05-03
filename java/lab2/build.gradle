@@ -12,9 +12,13 @@ repositories {
 dependencies {
 
     // TODO import kafka client jar
-    // HINT: compile 'org.apache.kafka:kafka-clients:1.0.0'
+    // HINT: compile 'org.apache.kafka:kafka-clients:1.1.0'
     // TODO import logging lib.
     // HINT: compile 'ch.qos.logback:logback-classic:1.2.2'
+}
+
+wrapper {
+    gradleVersion = "4.7"
 }
 
 

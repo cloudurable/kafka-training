@@ -10,6 +10,11 @@ repositories {
 }
 
 dependencies {
-    compile 'org.apache.kafka:kafka-clients:1.0.0'
+    compile 'org.apache.kafka:kafka-clients:1.1.0'
     compile 'ch.qos.logback:logback-classic:1.2.2'
 }
+
+wrapper {
+    gradleVersion = "4.7"
+}
+

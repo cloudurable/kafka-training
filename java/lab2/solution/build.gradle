@@ -5,6 +5,10 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
+wrapper {
+    gradleVersion = "4.7"
+}
+
 repositories {
     mavenCentral()
 }
