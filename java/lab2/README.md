@@ -82,7 +82,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.apache.kafka:kafka-clients:1.0.0'
+    compile 'org.apache.kafka:kafka-clients:1.1.0'
     compile 'ch.qos.logback:logback-classic:1.2.2'
 }
 
@@ -90,7 +90,7 @@ dependencies {
 
 
 
-Notice that we import the jar file `kafka-clients:1.0.0`.
+Notice that we import the jar file `kafka-clients:1.1.0`.
 Apache Kafka uses `sl4j` so to setup logging we use logback (`ch.qos.logback:logback-classic:1.2.2`).
 
 

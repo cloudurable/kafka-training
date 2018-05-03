@@ -28,6 +28,7 @@ java/lab2/solution/.idea/
 java/lab2/solution/build/
 java/lab2/solution/out/
 java/lab2/solution/.gradle/
+java/lab2/solution/gradle/
 java/lab2/solution/build/
 java/lab2/solution/out/
 
@@ -37,6 +38,7 @@ java/lab3/build/
 java/lab3/out/
 java/lab3/solution/.idea/
 java/lab3/solution/.gradle/
+java/lab3/solution/gradle/
 java/lab3/solution/build/
 java/lab3/solution/out/
 
@@ -46,6 +48,7 @@ java/lab4/build/
 java/lab4/out/
 java/lab4/solution/.idea/
 java/lab4/solution/.gradle/
+java/lab4/solution/gradle/
 java/lab4/solution/build/
 java/lab4/solution/out/
 
@@ -56,6 +59,7 @@ java/lab5/build/
 java/lab5/out/
 java/lab5/solution/.idea/
 java/lab5/solution/.gradle/
+java/lab5/solution/gradle/
 java/lab5/solution/build/
 java/lab5/solution/out/
 
@@ -65,6 +69,7 @@ java/lab5.1/build/
 java/lab5.1/out/
 java/lab5.1/solution/.idea/
 java/lab5.1/solution/.gradle/
+java/lab5.1/solution/gradle/
 java/lab5.1/solution/build/
 java/lab5.1/solution/out/
 
@@ -75,6 +80,7 @@ java/lab5.2/out/
 java/lab5.2/solution/.idea/
 java/lab5.2/solution/.gradle/
 java/lab5.2/solution/build/
+java/lab5.2/solution/gradle/
 java/lab5.2/solution/out/
 
 java/lab5.3/.idea/
@@ -84,6 +90,7 @@ java/lab5.3/out/
 java/lab5.3/solution/.idea/
 java/lab5.3/solution/.gradle/
 java/lab5.3/solution/build/
+java/lab5.3/solution/gradle/
 java/lab5.3/solution/out/
 
 java/lab5.4/.idea/
@@ -94,6 +101,7 @@ java/lab5.4/solution/.idea/
 java/lab5.4/solution/.gradle/
 java/lab5.4/solution/build/
 java/lab5.4/solution/out/
+java/lab5.4/solution/gradle/
 
 java/lab5.5/.idea/
 java/lab5.5/.gradle/
@@ -103,6 +111,7 @@ java/lab5.5/solution/.idea/
 java/lab5.5/solution/.gradle/
 java/lab5.5/solution/build/
 java/lab5.5/solution/out/
+java/lab5.5/solution/gradle/
 
 java/lab5.6/.idea/
 java/lab5.6/.gradle/
@@ -112,6 +121,7 @@ java/lab5.6/solution/.idea/
 java/lab5.6/solution/.gradle/
 java/lab5.6/solution/build/
 java/lab5.6/solution/out/
+java/lab5.6/solution/gradle/
 
 java/lab5.7/.idea/
 java/lab5.7/.gradle/
@@ -121,6 +131,7 @@ java/lab5.7/solution/.idea/
 java/lab5.7/solution/.gradle/
 java/lab5.7/solution/build/
 java/lab5.7/solution/out/
+java/lab5.7/solution/gradle/
 
 java/lab5.8/.idea/
 java/lab5.8/.gradle/
@@ -130,6 +141,7 @@ java/lab5.8/solution/.idea/
 java/lab5.8/solution/.gradle/
 java/lab5.8/solution/build/
 java/lab5.8/solution/out/
+java/lab5.8/solution/gradle/
 
 java/lab5.PRIME/.idea/
 java/lab5.PRIME/.gradle/
@@ -139,6 +151,7 @@ java/lab5.PRIME/solution/.idea/
 java/lab5.PRIME/solution/.gradle/
 java/lab5.PRIME/solution/build/
 java/lab5.PRIME/solution/out/
+java/lab5.PRIME/solution/gradle/
 
 java/lab6/.idea/
 java/lab6/.gradle/
@@ -148,6 +161,7 @@ java/lab6/solution/.idea/
 java/lab6/solution/.gradle/
 java/lab6/solution/build/
 java/lab6/solution/out/
+java/lab6/solution/gradle/
 
 java/lab6.1/.idea/
 java/lab6.1/.gradle/
@@ -157,6 +171,7 @@ java/lab6.1/solution/.idea/
 java/lab6.1/solution/.gradle/
 java/lab6.1/solution/build/
 java/lab6.1/solution/out/
+java/lab6.1/solution/gradle/
 
 java/lab6.2/.idea/
 java/lab6.2/.gradle/
@@ -166,6 +181,7 @@ java/lab6.2/solution/.idea/
 java/lab6.2/solution/.gradle/
 java/lab6.2/solution/build/
 java/lab6.2/solution/out/
+java/lab6.2/solution/gradle/
 
 java/lab6.3/.idea/
 java/lab6.3/.gradle/
@@ -175,6 +191,7 @@ java/lab6.3/solution/.idea/
 java/lab6.3/solution/.gradle/
 java/lab6.3/solution/build/
 java/lab6.3/solution/out/
+java/lab6.3/solution/gradle/
 
 java/lab6.4/.idea/
 java/lab6.4/.gradle/
@@ -184,6 +201,7 @@ java/lab6.4/solution/.idea/
 java/lab6.4/solution/.gradle/
 java/lab6.4/solution/build/
 java/lab6.4/solution/out/
+java/lab6.4/solution/gradle/
 
 java/lab6.5/.idea/
 java/lab6.5/.gradle/
@@ -193,6 +211,7 @@ java/lab6.5/solution/.idea/
 java/lab6.5/solution/.gradle/
 java/lab6.5/solution/build/
 java/lab6.5/solution/out/
+java/lab6.5/solution/gradle/
 
 java/lab6.6/.idea/
 java/lab6.6/.gradle/
@@ -202,6 +221,7 @@ java/lab6.6/solution/.idea/
 java/lab6.6/solution/.gradle/
 java/lab6.6/solution/build/
 java/lab6.6/solution/out/
+java/lab6.6/solution/gradle/
 
 java/lab6.7/.idea/
 java/lab6.7/.gradle/
@@ -211,6 +231,7 @@ java/lab6.7/solution/.idea/
 java/lab6.7/solution/.gradle/
 java/lab6.7/solution/build/
 java/lab6.7/solution/out/
+java/lab6.7/solution/gradle/
 
 java/lab6.PRIME/.idea/
 java/lab6.PRIME/.gradle/
@@ -220,6 +241,7 @@ java/lab6.PRIME/solution/.idea/
 java/lab6.PRIME/solution/.gradle/
 java/lab6.PRIME/solution/build/
 java/lab6.PRIME/solution/out/
+java/lab6.PRIME/solution/gradle/
 
 java/lab7.1/.idea/
 java/lab7.1/.gradle/
@@ -229,6 +251,7 @@ java/lab7.1/solution/.idea/
 java/lab7.1/solution/.gradle/
 java/lab7.1/solution/build/
 java/lab7.1/solution/out/
+java/lab7.1/solution/gradle/
 
 java/lab7.2/.idea/
 java/lab7.2/.gradle/
@@ -238,6 +261,7 @@ java/lab7.2/solution/.idea/
 java/lab7.2/solution/.gradle/
 java/lab7.2/solution/build/
 java/lab7.2/solution/out/
+java/lab7.2/solution/gradle/
 
 java/lab8.1/.idea/
 java/lab8.1/.gradle/
@@ -247,6 +271,7 @@ java/lab8.1/solution/.idea/
 java/lab8.1/solution/.gradle/
 java/lab8.1/solution/build/
 java/lab8.1/solution/out/
+java/lab8.1/solution/gradle/
 
 java/lab8.2/.idea/
 java/lab8.2/.gradle/
@@ -256,6 +281,7 @@ java/lab8.2/solution/.idea/
 java/lab8.2/solution/.gradle/
 java/lab8.2/solution/build/
 java/lab8.2/solution/out/
+java/lab8.2/solution/gradle/
 
 java/lab8.3/.idea/
 java/lab8.3/.gradle/
@@ -265,6 +291,7 @@ java/lab8.3/solution/.idea/
 java/lab8.3/solution/.gradle/
 java/lab8.3/solution/build/
 java/lab8.3/solution/out/
+java/lab8.3/solution/gradle/
 
 java/lab8.4/.idea/
 java/lab8.4/.gradle/
@@ -274,6 +301,7 @@ java/lab8.4/solution/.idea/
 java/lab8.4/solution/.gradle/
 java/lab8.4/solution/build/
 java/lab8.4/solution/out/
+java/lab8.4/solution/gradle/
 
 java/lab9/.idea/
 java/lab9/.gradle/
@@ -283,6 +311,7 @@ java/lab9/solution/.idea/
 java/lab9/solution/.gradle/
 java/lab9/solution/build/
 java/lab9/solution/out/
+java/lab9/solution/gradle/
 
 java/lab10/.idea/
 java/lab10/.gradle/
@@ -292,6 +321,7 @@ java/lab10/solution/.idea/
 java/lab10/solution/.gradle/
 java/lab10/solution/build/
 java/lab10/solution/out/
+java/lab10/solution/gradle/
 
 
 
