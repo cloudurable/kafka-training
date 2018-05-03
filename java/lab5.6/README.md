@@ -85,4 +85,5 @@ client can send on a single connection before blocking
 If  >1 and failed sends, then there is a risk of message re-ordering on partition during
 retry attempt (they could be written out of order of the send). If this is bad, depends on use
 but for our StockPrices this is not good, you should pick retries > 1 or inflight > 1 but not
-both. Avoid duplicates. The June 2017 release might fix this with sequence from producer.
+both. Avoid duplicates. The June 2017 release fixed this with sequence from producer.
+
