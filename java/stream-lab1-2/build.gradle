@@ -14,5 +14,9 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.2.2'
 }
 
+wrapper {
+    gradleVersion = "4.7"
+}
+
 
 

@@ -22,3 +22,6 @@ avro {
     fieldVisibility = "PRIVATE"
 }
 
+wrapper {
+    gradleVersion = "4.7"
+}

@@ -16,4 +16,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-
+wrapper {
+    gradleVersion = "4.7"
+}
