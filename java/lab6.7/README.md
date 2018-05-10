@@ -11,7 +11,7 @@ Find the latest version of this lab [here](https://gist.github.com/RichardHighto
 ## Lab Using consumer.assign to implement a priority queue
 
 In this lab, you will implement a priority processing queue.
-You will use consumer.partitionsFor(TOPIC) to get a list of partitions.
+You will use `consumer.partitionsFor(TOPIC)` to get a list of partitions.
 Usage like this simplest when the partition assignment is also done manually using `assign()` instead of `subscribe()`.
 Use `assign()`, pass a `TopicPartition` from the consumer worker.
 Use the `Partitioner` from an earlier example for Producer so only important stocks get sent to the important partition.
