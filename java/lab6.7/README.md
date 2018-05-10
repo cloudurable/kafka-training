@@ -1,22 +1,20 @@
 # Lab 6.7: Implementing a priority queue with consumer.assign()
 
 Welcome to the session 6 lab 7. The work for this lab is done in `~/kafka-training/lab6.7`.
-In this lab, you are going to implement a priority queue with consumer.assign().
+In this lab, you are going to implement a priority queue with `consumer.assign()`.
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
 Find the latest version of this lab [here](https://gist.github.com/RichardHightower/81a66e0f9822e9e74660deec10640d27).
 
 
-## Lab Using consumer.assign to implement at priority queue
+## Lab Using consumer.assign to implement a priority queue
 
-In this lab you will implement a priority processing queue.
+In this lab, you will implement a priority processing queue.
 You will use consumer.partitionsFor(TOPIC) to get a list of partitions.
-Usage like this simplest when the partition assignment is also done manually using assign()
-instead of subscribe().
-Use assign(), pass TopicPartition from the consumer worker.
-Use Partitioner from earlier example for Producer so only important stocks are sent to
-the important partition.
+Usage like this simplest when the partition assignment is also done manually using `assign()` instead of `subscribe()`.
+Use `assign()`, pass a `TopicPartition` from the consumer worker.
+Use the `Partitioner` from an earlier example for Producer so only important stocks get sent to the important partition.
 
 ## Using partitionsFor() for Priority Queue
 
@@ -46,22 +44,22 @@ import static com.cloudurable.kafka.StockAppConstants.TOPIC;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public class ConsumerMain {
-	...
-	public static void main(String... args) throws Exception {
-		final AtomicBoolean stopAll = new AtomicBoolean();
-		final Consumer<String, StockPrice> consumer = createConsumer();
+    ...
+    public static void main(String... args) throws Exception {
+        final AtomicBoolean stopAll = new AtomicBoolean();
+        final Consumer<String, StockPrice> consumer = createConsumer();
 
-		//Get the partitions
-		final List<PartitionInfo> partitionInfos = consumer.partitionsFor(TOPIC);
+        //Get the partitions
+        final List<PartitionInfo> partitionInfos = consumer.partitionsFor(TOPIC);
 
         final int threadCount = partitionInfos.size();
-		final int numWorkers = 5;
+        final int numWorkers = 5;
         final ExecutorService executorService = newFixedThreadPool(threadCount);
 
         IntStream.range(0, threadCount).forEach(index -> {
             final PartitionInfo partitionInfo = partitionInfos.get(index);
-			final boolean leader = partitionInfo.partition() == partitionInfos.size() -1;
-			final int workerCount = leader ? numWorkers * 3 : numWorkers;
+            final boolean leader = partitionInfo.partition() == partitionInfos.size() -1;
+            final int workerCount = leader ? numWorkers * 3 : numWorkers;
             final StockPriceConsumerRunnable stockPriceConsumer =
                     new StockPriceConsumerRunnable(partitionInfo, createConsumer(),
                             readCountStatusUpdate: 10, index, stopAll, workerCount);
@@ -91,8 +89,7 @@ public class ConsumerMain {
 
 ```
 
-The index is the topic partition.
-Num threads is partition count and the priority partition gets extra workers.
+Notice that the index is the topic partition. Num threads are the partition count, and the priority partition gets extra workers.
 
 ## Using assign() for Priority Queue
 
@@ -116,21 +113,21 @@ import static com.cloudurable.kafka.StockAppConstants.TOPIC;
 
 
 public class StockPriceConsumerRunnable implements Runnable {
-	...
-	private void runConsumer() throws Exception {
-		//Assign a partition
+    ...
+    private void runConsumer() throws Exception {
+        //Assign a partition
         consumer.assign(Collections.singleton(topicPartition));
         final Map<String, StockPrice> lastRecordPerStock = new HashMap<>();
-		try {
-				int readCount = 0;
-				while (isRunning()) {
-					pollRecordsAndProcess(lastRecordPerStock, readCount);
-				}
-		} finally {
-			consumer.close();
+        try {
+                int readCount = 0;
+                while (isRunning()) {
+                    pollRecordsAndProcess(lastRecordPerStock, readCount);
+                }
+        } finally {
+            consumer.close();
         }
     }
-	...
+    ...
 }
 
 ```

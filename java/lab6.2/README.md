@@ -11,31 +11,32 @@ Find the latest version of this lab [here](https://gist.github.com/RichardHighto
 
 ### Offsets and Consumer Position
 
-Consumer position is offset and partition of last record per partition consuming from. Offset for each record in a partition as a unique identifier record location in partition.
+Consumer position is the topic, partition and offset of the last record per partition consuming. Offset for each record in a partition as a unique identifier record location in the partition.
 Consumer position gives offset of next *(highest)* record that it consumes and the position advances automatically for each call to `poll(..)`.
 
 ### Consumer committed Position
 
-Consumer committed position is last offset that has been stored to broker, if consumer fails, it picks up at last committed position.
+Consumer committed position is the last offset that has been stored to the Kafka broker if the consumer fails, this allows the consumer to picks up at the last committed position.
 Consumer can auto commit offsets ***(enable.auto.commit)*** periodically ***(auto.commit.interval.ms)*** or do commit explicitly using `commitSync()` and `commitAsync()`.
 
 ### Consumer Groups
 
-Consumers are organized into consumer groups, to do this consumer instances have been the same ***group.id***. Pool of consumers divide work of consuming and processing records. In the consumer groups processes and threads can run on same box or distributed for ***scalability/fault tolerance***.
-Kafka shares topic partitions among all consumers in a consumer group, each partition is assigned to exactly one consumer in consumer group. ***E.g.*** One topic has six partitions, and a consumer group has two consumer process, each process gets consume three partitions.
-If a consumer fails, Kafka reassigned partitions from failed consumer to other consumers in same consumer group. If new consumer joins, Kafka moves partitions from existing consumers to new one.
-Consumer group form ***single logical subscriber*** made up of multiple consumers. Kafka is a multi-subscriber system, Kafka supports *N* number of ***consumer groups*** for a given topic without duplicating data.
+Kafka organizes Consumers into consumer groups. Consumer instances that have the same ***group.id*** are in the same consumer group. Pools of consumers in a group divide work of consuming and processing records. In the consumer groups, processes and threads can run on the same box or run distributed for ***scalability/fault tolerance***.
+
+Kafka shares ***topic partitions*** among all consumers in a consumer group, each partition is assigned to exactly one consumer in a consumer group. ***E.g.*** One topic has six partitions, and a consumer group has two consumer process, each process gets consume three partitions.
+If a consumer fails, Kafka reassigned partitions from failed consumer to other consumers in the same consumer group. If new consumer joins, Kafka moves partitions from existing consumers to the new consumer.
+A ***Consumer group*** forms a ***single logical subscriber*** made up of multiple consumers. Kafka is a multi-subscriber system, Kafka supports *N* number of ***consumer groups*** for a given topic without duplicating data.
 
 ### Partition Reassignment
 
 Consumer partition reassignment in a consumer group happens automatically.
 Consumers are notified via ***ConsumerRebalanceListener*** and triggers consumers to finish necessary clean up.
-Consumer can use API to assign specific partitions using ***assign***(Collection), but, disables dynamic partition assignment and consumer group coordination.
-Dead client may see CommitFailedException thrown from a call to `commitSync()`. Only active members of consumer group can commit offsets.
+A Consumer can use the API to assign specific partitions using the ***assign***(Collection) method, but using `assign` disables dynamic partition assignment and consumer group coordination.
+Dead consumers may see `CommitFailedException` thrown from a call to `commitSync()`. Only active members of consumer group can commit offsets.
 
 ### Controlling Consumers Position
 
-You can control consumer position moving to forward or backwards. Consumer can re-consume older records or skip to most recent records.
+You can control consumer position moving to forward or backward. Consumers can re-consume older records or skip to the most recent records.
 
 #### ~/kafka-training/lab6.2/src/main/java/com/cloudurable/kafka/consumer/SeekTo.java
 #### Kafka Consumer:  SeekTo
@@ -81,20 +82,20 @@ import java.util.Properties;
 
 public class SimpleStockPriceConsumer {
 ...
-	private static Consumer<String, StockPrice> createConsumer(final SeekTo seekTo,
-	  							   final long location) {
-		final Properties props = initProperties();
+    private static Consumer<String, StockPrice> createConsumer(final SeekTo seekTo,
+                                     final long location) {
+        final Properties props = initProperties();
 
-		// Create the consumer using props.
-		final Consumer<String, StockPrice> consumer =
-				new KafkaConsumer<>(props);
+        // Create the consumer using props.
+        final Consumer<String, StockPrice> consumer =
+                new KafkaConsumer<>(props);
 
-		final ConsumerRebalanceListener consumerRebalanceListener = null;
+        final ConsumerRebalanceListener consumerRebalanceListener = null;
 
-		consumer.subscribe(Collections.singletonList(
-				StockAppConstants.TOPIC), consumerRebalanceListener);
-		return consumer;
-	}
+        consumer.subscribe(Collections.singletonList(
+                StockAppConstants.TOPIC), consumerRebalanceListener);
+        return consumer;
+    }
 ...
 }
 
@@ -156,7 +157,7 @@ public class SeekToConsumerRebalanceListener implements ConsumerRebalanceListene
     private final long location;
     private final long startTime = System.currentTimeMillis();
     public SeekToConsumerRebalanceListener(final Consumer<String, StockPrice> consumer, final SeekTo seekTo,
-    										final long location) {
+                                            final long location) {
         this.seekTo = seekTo;
         this.location = location;
         this.consumer = consumer;
@@ -292,7 +293,7 @@ It should all run. Stop consumer and producer when finished.
 
 ## Auto offset reset config
 
-What happens when you seek to an invalid location is controlled by consumer based configuration property:
+What happens when you seek to an invalid location is controlled by consumer-based configuration property:
 
 ```
 ConsumerConfig.AUTO_OFFSET_RESET_CONFIG = "auto.offset.reset"
@@ -302,7 +303,7 @@ Valid values: "latest", "earliest", "none"
 
 * latest: automatically reset the offset to the latest offset
 * earliest: automatically reset the offset to the earliest offset
-* none: throw exception to the consumer if no previous offset is found for the consumer's group anything else: throw exception to the consumer.
+* none: throw an exception to the consumer if no previous offset is found for the consumer's group anything else: throw exception to the consumer.
 
 ____
 

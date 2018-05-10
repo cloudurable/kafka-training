@@ -12,9 +12,9 @@ Find the latest version of this lab [here](https://gist.github.com/RichardHighto
 
 ### Consumer Alive Detection
 
-Consumers join consumer group after subscribe and then poll() is called.
-Automatically, consumer sends periodic heartbeats to Kafka brokers server.
-If consumer crashes or unable to send heartbeats for a duration of ***session.timeout.ms***, then consumer is deemed dead and its partitions are reassigned.
+Consumers join consumer group after `subscribe` and then `poll()` is called.
+Automatically, a consumer sends periodic heartbeats to Kafka brokers server.
+If consumer crashes or is unable to send heartbeats for a duration of ***session.timeout.ms***, then the consumer is deemed dead, and its partitions reassigned.
 
 ### Manual Partition Assignment
 
@@ -26,19 +26,21 @@ TopicPartition part1 = new TopicPartition(topic, 1);
 consumer.assign(Arrays.asList(part0, part1);
 ```
 Using consumer as before with ***poll()***.
-Manual Partition assignment negates use of group coordination, and auto consumer fail over - Each consumer acts independently even if in a consumer group (use unique group id to avoid confusion).
+Manual Partition assignment negates the use of group coordination and auto consumer failover. Each consumer acts independently even if in a consumer group (use unique group id to avoid confusion).
 You have to use ***assign()*** or ***subscribe()***, but not both.
+Use ***subscribe()*** to allow Kafka to manage failover and load balancing with consumer groups. Use ***assign()*** if you want to work with partitions exact.
 
 ### Consumer Alive if Polling
 
 Calling ***poll()*** marks consumer as alive. If consumer continues to call ***poll()***, then consumer is alive and in consumer group and gets messages for partitions assigned (has to call before every ***max.poll.interval.ms*** interval), If not calling ***poll()***, even if consumer is sending heartbeats, consumer is still considered dead.
 Processing of records from ***poll*** has to be faster than ***max.poll.interval.ms*** interval or your consumer could be marked dead!
-***max.poll.records*** is used to limit total records returned from a poll call - easier to predict max time to process records on each poll interval.
+The ***max.poll.records*** is used to limit total records returned from a `poll` method call and makes it easier to predict max time to process the records on each poll interval.
 
 ### Message Delivery Semantics
 
 There are three message delivery semantics: at most once, at least once and exactly once.
-At most once is messages may be lost but are never redelivered. At least once is messages are never lost but may be redelivered. Exactly once is each message is delivered once and only once. Exactly once is preferred but more expensive, and requires more bookkeeping for the producer and consumer.
+
+At most once is messages may be lost but never redelivered. At least once is messages are never lost but may be redelivered. Exactly once is each message is delivered once and only once. Exactly once is preferred but more expensive, and requires more bookkeeping for the producer and consumer.
 
 ### "At-Least-Once" - Delivery Semantics
 
@@ -68,7 +70,7 @@ public class SimpleStockPriceConsumer {
 
         try {
             startTransaction();         //Start DB Transaction
-            processRecords(map, consumerRecords);	//Process the records
+            processRecords(map, consumerRecords);    //Process the records
             consumer.commitSync();
             commitTransaction();        //Commit DB Transaction
         } catch (CommitFailedException ex) {
@@ -122,8 +124,8 @@ public class SimpleStockPriceConsumer {
         try {
 
             startTransaction();         //Start DB Transaction
-            consumer.commitSync();		//Commit the Kafka offset
-            processRecords(map, consumerRecords);	//Process the records
+            consumer.commitSync();        //Commit the Kafka offset
+            processRecords(map, consumerRecords);    //Process the records
             commitTransaction();        //Commit DB Transaction
         } catch (CommitFailedException ex) {
             logger.error("Failed to commit sync to log", ex);
@@ -168,26 +170,26 @@ public class SimpleStockPriceConsumer {
             int readCountStatusUpdate,
             Consumer<String, StockPrice> consumer,
             Map<String, StockPrice> map, int readCount)
-			consumerRecords.forEach(record -> {
-				try {
-					startTransaction();         //Start DB Transaction
+            consumerRecords.forEach(record -> {
+                try {
+                    startTransaction();         //Start DB Transaction
                     //Commit Kafka at exact location for record, and only this record.
-					final TopicPartition recordTopicPartition =
-						new TopicPartition(record.topic(), record.partition());
-					final Map<TopicPartition, OffsetAndMetadata> commitMap =
-						Collections.singletonMap(recordTopicPartition,
-						new OffsetAndMetadata( offset: record.offset() + 1));
-					consumer.commitSync(commitMap); //Kafka Commit
-					processRecords(record);			//Process the record
-					commitTransaction();        //Commit DB Transaction
-				} catch (CommitFailedException ex) {
-					logger.error("Failed to commit sync to log", ex);
-					rollbackTransaction();      //Rollback Transaction
-				} catch (DatabaseException dte) {
-					logger.error("Failed to write to DB", dte);
-					rollbackTransaction();      //Rollback Transaction
-				}
-			});
+                    final TopicPartition recordTopicPartition =
+                        new TopicPartition(record.topic(), record.partition());
+                    final Map<TopicPartition, OffsetAndMetadata> commitMap =
+                        Collections.singletonMap(recordTopicPartition,
+                        new OffsetAndMetadata( offset: record.offset() + 1));
+                    consumer.commitSync(commitMap); //Kafka Commit
+                    processRecords(record);            //Process the record
+                    commitTransaction();        //Commit DB Transaction
+                } catch (CommitFailedException ex) {
+                    logger.error("Failed to commit sync to log", ex);
+                    rollbackTransaction();      //Rollback Transaction
+                } catch (DatabaseException dte) {
+                    logger.error("Failed to write to DB", dte);
+                    rollbackTransaction();      //Rollback Transaction
+                }
+            });
         if (readCount % readCountStatusUpdate == 0) {
             displayRecordsStatsAndStocks(map, consumerRecords);
         }
@@ -224,26 +226,26 @@ public class SimpleStockPriceConsumer {
             int readCountStatusUpdate,
             Consumer<String, StockPrice> consumer,
             Map<String, StockPrice> map, int readCount)
-			consumerRecords.forEach(record -> {
-				try {
-					startTransaction();         //Start DB Transaction
-					processRecords(record);			//Process the record
-                    		//Commit Kafka at exact location for record, and only this record.
-					final TopicPartition recordTopicPartition =
-						new TopicPartition(record.topic(), record.partition());
-					final Map<TopicPartition, OffsetAndMetadata> commitMap =
-						Collections.singletonMap(recordTopicPartition,
-						new OffsetAndMetadata( offset: record.offset() + 1));
-					consumer.commitSync(commitMap); //Kafka Commit
-					commitTransaction();        //Commit DB Transaction
-				} catch (CommitFailedException ex) {
-					logger.error("Failed to commit sync to log", ex);
-					rollbackTransaction();      //Rollback Transaction
-				} catch (DatabaseException dte) {
-					logger.error("Failed to write to DB", dte);
-					rollbackTransaction();      //Rollback Transaction
-				}
-			});
+            consumerRecords.forEach(record -> {
+                try {
+                    startTransaction();         //Start DB Transaction
+                    processRecords(record);            //Process the record
+                            //Commit Kafka at exact location for the record, and only this record.
+                    final TopicPartition recordTopicPartition =
+                        new TopicPartition(record.topic(), record.partition());
+                    final Map<TopicPartition, OffsetAndMetadata> commitMap =
+                        Collections.singletonMap(recordTopicPartition,
+                        new OffsetAndMetadata( offset: record.offset() + 1));
+                    consumer.commitSync(commitMap); //Kafka Commit
+                    commitTransaction();        //Commit DB Transaction
+                } catch (CommitFailedException ex) {
+                    logger.error("Failed to commit sync to log", ex);
+                    rollbackTransaction();      //Rollback Transaction
+                } catch (DatabaseException dte) {
+                    logger.error("Failed to write to DB", dte);
+                    rollbackTransaction();      //Rollback Transaction
+                }
+            });
         if (readCount % readCountStatusUpdate == 0) {
             displayRecordsStatsAndStocks(map, consumerRecords);
         }

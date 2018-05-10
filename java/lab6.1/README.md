@@ -13,8 +13,8 @@ Find the latest version of this lab [here](https://gist.github.com/RichardHighto
 
 A consumer is a type of Kafka client that consumes records from Kafka cluster.
 The Kafka *Consumer* automatically handles Kafka broker failure, adapt as topic partitions leadership moves in Kafka cluster.
-The consumer works with Kafka broker to form consumers groups and load balance consumers.
-The consumer maintains connections to Kafka brokers in cluster.
+The consumer works with Kafka broker to form consumer groups and load balance consumers.
+The consumer maintains connections to Kafka brokers in the cluster.
 The consumer must be closed to not leak resources.
 The Kafka client API for Consumers are ***NOT*** thread-safe.
 
@@ -24,15 +24,15 @@ The Kafka client API for Consumers are ***NOT*** thread-safe.
 
 The Stock Price Consumer example has the following classes:
 
-* StockPrice - holds a stock price has a name, dollar, and cents
-* SimpleStockPriceConsumer - consumes StockPrices and display batch lengths for poll
-* StockAppConstants - holds topic and broker list
-* StockPriceDeserializer - can deserialize a ***StockPrice*** from ***byte[]***
+* `StockPrice` - holds a stock price has a name, dollar, and cents
+* `SimpleStockPriceConsumer` - consumes StockPrices and display batch lengths for the poll method call
+* `StockAppConstants` - holds topic and broker list
+* `StockPriceDeserializer` - can deserialize a ***StockPrice*** from ***byte[]***
 
 
 ### StockPriceDeserializer
 
-The StockPriceDeserializer just calls the JSON parser to parse JSON in bytes to a StockPrice object.
+The `StockPriceDeserializer` calls the JSON parser to parse JSON in bytes to a `StockPrice` object.
 
 #### ~/kafka-training/lab6.1/src/main/java/com/cloudurable/kafka/consumer/StockPriceDeserializer.java
 #### Kafka Consumer:  StockPriceDeserializer - Parse JSON in bytes to a StockPrice object
@@ -93,9 +93,9 @@ Fix the constructor by using the hint which calls the JSON parser.
 
 ### SimpleStockPriceKafkaConsumer
 
-SimpleStockPriceKafkaConsumer is a createConsumer method to create a KafkaProducer instance, subscribes to stock-prices topics and has a custom deserializer.
+`SimpleStockPriceKafkaConsumer` has a `createConsumer` method to create a KafkaProducer instance, subscribes to stock-prices topics and has a custom deserializer.
 It has a `runConsumer()` method that drains topic, creates map of current stocks and calls `displayRecordsStatsAndStocks()` method.
-The method `displayRecordsStatsAndStocks()` prints out size of each partition read and total record count and prints out each stock at its current price.
+The method `displayRecordsStatsAndStocks()` prints out the size of each partition read and total record count and prints out each stock at its current price.
 
 #### ~/kafka-training/lab6.1/src/main/java/com/cloudurable/kafka/consumer/SimpleStockPriceConsumer.java
 #### Kafka Consumer:  SimpleStockPriceConsumer -
@@ -188,9 +188,9 @@ public class SimpleStockPriceConsumer {
 ### Running the example
 
 To run the example, you need to run ZooKeeper, then run the three Kafka Brokers.
-Once that is running, you will need to run create-topic.sh. And lastly run the `SimpleStockPriceConsumer` from the IDE.
+Once that is running, you will need to run create-topic.sh. And lastly, run the `SimpleStockPriceConsumer` from the IDE.
 
-First run ZooKeeper.
+First, run ZooKeeper.
 
 #### Running ZooKeeper with run-zookeeper.sh (Run in a new terminal)
 ```sh
@@ -288,7 +288,7 @@ The name of the topic is stock-prices.
 The topic has three partitions.
 The created topic has a replication factor of three.
 
-For the config only the broker id and log directory changes.
+For the config, only the broker id and log directory changes.
 
 #### config/server-0.properties
 ```sh
@@ -311,7 +311,7 @@ This comprehensive *Kafka tutorial* covers Kafka architecture and design. The *K
 [Complete Kafka Tutorial: Architecture, Design, DevOps and Java Examples.](http://cloudurable.com/blog/kafka-tutorial-kafka-producer-advanced-java-examples/index.html "Comprehensive Apache Kafka tutorial and training series")
 
 
-* [Kafka Tutorial Part 1: What is Kafka?](http://cloudurable.com/blog/what-is-kafka/index.html "This Kafka tutorial describes what Kafka is. Kafka is a fast, scalable, durable, and fault-tolerant publish-subscribe messaging system, Kafka is used in use cases where JMS, RabbitMQ, and AMQP may not even be considered due to volume and responsiveness. It covers the impact of Kafka, who uses it and why it is important")
+* [Kafka Tutorial Part 1: What is Kafka?](http://cloudurable.com/blog/what-is-kafka/index.html "This Kafka tutorial describes what Kafka is. Kafka is a fast, scalable, durable, and fault-tolerant publish-subscribe messaging system. Kafka gets used in use cases where JMS, RabbitMQ, and AMQP are not under consideration due to volume and responsiveness. It covers the impact of Kafka, who uses it and why it is important")
 * [Kafka Tutorial Part 2: Kafka Architecture](http://cloudurable.com/blog/kafka-architecture/index.html "This Kafka tutorial discusses the structure of Kafka. Kafka consists of Records, Topics, Consumers, Producers, Brokers, Logs, Partitions, and Clusters. Records can have key, value and timestamp. Kafka Records are immutable. A Kafka Topic is a stream of records - \"/orders\", \"/user-signups\". You can think of a Topic as a feed name. It covers the structure of and purpose of topics, log, partition, segments, brokers, producers, and consumers")
 * [Kafka Tutorial Part 3: Kafka Topic Architecture](http://cloudurable.com/blog/kafka-architecture-topics/index.html "This Kafka tutorial covers some lower level details of Kafka topic architecture. It is a continuation of the Kafka Architecture article. This article covers Kafka Topic's Architecture with a discussion of how partitions are used for fail-over and parallel processing.")
 * [Kafka Tutorial Part 4: Kafka Consumer Architecture](http://cloudurable.com/blog/kafka-architecture-consumers/index.html "This Kafka tutorial covers Kafka Consumer Architecture with a discussion consumer groups and how record processing is shared among a consumer group as well as failover for Kafka consumers.")

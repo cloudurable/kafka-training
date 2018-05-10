@@ -15,19 +15,14 @@ Unlike Kafka producers, Kafka consumers are not thread-safe.
 All network I/O happens in a thread of the application making calls.  Kafka Consumers
 manage buffers, and connections state that threads can't share.
 
-The only exception thread safe method that the consumer has is consumer.wakeup().
-The wakeup() method forces the consumer to throw a WakeupException on any thread the
-consumer client is blocking.  You can use this to shutdown a consumer from another thread.
+The only exception thread-safe method that the consumer has is `consumer.wakeup()`.
+The `wakeup()` method forces the consumer to throw a `WakeupException` on any thread the
+consumer client is blocking.  You can use this to shut down a consumer from another thread.
 
 ## Consumer per thread
-The easiest to implement a client application that can handle more work is to use a
-thread per consumer and then spin up more consumers.  This approach works best because
-it requires no inter-thread co-ordination.  You don't have to worry about in-order
-processing on a per-partition basis because Kafka is already sending messages by key
-to the partitions that you are managing so in-order processing is natural. This approach
-is easy to implement,
-
-You just process records in the order that you receive them.
+The easiest to implement a client application that can handle more work is to use a thread per consumer and then spin up more consumers.  This approach works best because
+it requires no inter-thread co-ordination.  You don't have to worry about in-order processing on a per-partition basis because Kafka is already sending messages by key
+to the partitions that you are managing so in-order processing is natural. This approach is easy to implement. Just process records in the order that you receive them.
 
 ## StockPriceConsumerRunnable is Runnable
 
@@ -68,16 +63,16 @@ public class StockPriceConsumerRunnable implements Runnable{
 
     @Override
     public void run() {
-		try {
-		runConsumer();
-		} catch (Exception ex) {
-		logger.error("Run Consumer Exited with", ex);
-		}
+        try {
+        runConsumer();
+        } catch (Exception ex) {
+        logger.error("Run Consumer Exited with", ex);
+        }
     }
 
-	...
+    ...
 
-	void runConsumer() throws Exception {
+    void runConsumer() throws Exception {
         // Subscribe to the topic.
         consumer.subscribe(Collections.singletonList(TOPIC));
         final Map<String, StockPrice> lastRecordPerStock = new HashMap<>();
@@ -103,8 +98,8 @@ public class StockPriceConsumerRunnable implements Runnable{
             if (stopAll.get()) this.setRunning(false);
             return;
         }
-		consumerRecords.forEach(record -> currentStocks.put(record.key()
-				new StockPriceRecord(record.value(), saved: true, record)));
+        consumerRecords.forEach(record -> currentStocks.put(record.key()
+                new StockPriceRecord(record.value(), saved: true, record)));
         try {
             startTransaction();                         //Start DB Transaction
 
@@ -155,21 +150,21 @@ import java.util.stream.IntStream;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public class ConsumerMain {
-	...
-	public static void main(String... args) throws Exception {
+    ...
+    public static void main(String... args) throws Exception {
         final int threadCount = 5;
         final ExecutorService executorService = newFixedThreadPool(threadCount);
         final AtomicBoolean stopAll = new AtomicBoolean();
 
         IntStream.range(0, threadCount).forEach(index -> {
             final StockPriceConsumerRunnable stockPriceConsumer =
-			    new StockPriceConsumerRunnable(createConsumer(),
+                new StockPriceConsumerRunnable(createConsumer(),
                         readCountStatusUpdate: 10, index, stopAll);
             executorService.submit(stockPriceConsumer);
         });
-		...
+        ...
     }
-	...
+    ...
 }
 
 ```

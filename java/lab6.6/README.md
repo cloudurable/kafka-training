@@ -15,27 +15,27 @@ Recall that unlike Kafka producers, Kafka consumers are not thread-safe.
 All network I/O happens in a thread of the application making calls.  Kafka Consumers
 manage buffers, and connections state that threads can't share.
 
-The only exception thread safe method that the consumer has is consumer.wakeup().
+Remember only exception thread-safe method that the consumer has is `consumer.wakeup()`.
 The wakeup() method forces the consumer to throw a WakeupException on any thread the
-consumer client is blocking.  You can use this to shutdown a consumer from another thread.
+consumer client is blocking.  You can use this to shut down a consumer from another thread.
 The solution and lab use wakeup. This is an easter egg.
 
 
-## Consumer with many thread
+## Consumer with many threads
 
 Decouple Consumption and Processing: One or more consumer threads that consume from Kafka
 and hands off ConsumerRecords instances to a thread pool where a worker thread can process it.
 This approach uses a blocking queue per topic partition to commit offsets to Kafka.
 This method is useful if per record processing is time-consuming.
 
-An advantage is option allows independently scaling consumers count and processors count.
-Processor threads are independent of topic partition count is also a big advantage.
+An advantage is an option allows independently scaling consumers count and processors count.
+Processor threads are independent of topic partition count is also a significant advantage.
 
-The problem with this approach is that guaranteeing order across processors requires care as
-threads execute independently and a later record could be processed before an
+The problem with this approach is that guaranteeing order across processors requires care as threads execute independently and a later record could be processed before an
 earlier record and then you have to do consumer commits somehow with this out of order offsets.
+
 How do you commit the position unless there is some order? You have to provide the ordering.
-(ConcurrentHashMap of BlockingQueues where topic, partition is the key (TopicPartition)?)
+(We use `ConcurrentHashMap` of `BlockingQueues` where the topic partition is the key (`TopicPartition`).)
 
 ### One Consumer with Worker Threads
 
@@ -67,22 +67,22 @@ public class StockPriceConsumerRunnable implements Runnable {
     private final AtomicBoolean stopAll;
     private boolean running = true;
 
-	//Store blocking queue by TopicPartition
+    //Store blocking queue by TopicPartition
     Map<TopicPartition, BlockingQueue<ConsumerRecord>>
-	commitQueueMap = new ConcurrentHashMap<>();
+    commitQueueMap = new ConcurrentHashMap<>();
 
     //Worker pool.
-	private final ExecutorService threadPool;
-	...
+    private final ExecutorService threadPool;
+    ...
 }
 
 ```
 
 Map of queues per TopicPartition and threadPool;
 
-## StockPriceConsumerRunnable is still Runnable but now it has many threads
+## StockPriceConsumerRunnable is still Runnable, but now it has many threads
 
-You will need to add a worker threadPool to the StockPriceConsumerRunnable.
+You will need to add a worker `threadPool` to the `StockPriceConsumerRunnable`.
 The `StockPriceConsumerRunnable` uses a map of blocking queues per TopicPartition to manage
 sending offsets to Kafka.
 
@@ -108,12 +108,12 @@ import static com.cloudurable.kafka.StockAppConstants.TOPIC;
 
 public class StockPriceConsumerRunnable implements Runnable {
 ...
-	private void pollRecordsAndProcess(
+    private void pollRecordsAndProcess(
             final Map<String, StockPrice> currentStocks,
             final int readCount) throws Exception {
 
         final ConsumerRecords<String, StockPrice> consumerRecords =
-			consumer.poll(timeout: 100);
+            consumer.poll(timeout: 100);
 
         if (consumerRecords.count() == 0) {
             if (stopAll.get()) this.setRunning(false);
@@ -121,14 +121,14 @@ public class StockPriceConsumerRunnable implements Runnable {
         }
 
         consumer.Records.forEach(record ->
-				currentStocks.put(record.key(),
-						new StockPriceRecord(record.value(), saved: true, record)
-				));
+                currentStocks.put(record.key(),
+                        new StockPriceRecord(record.value(), saved: true, record)
+                ));
 
-		threadPool.execute(() ->
-				processRecords(currentStocks, consumerRecords));
+        threadPool.execute(() ->
+                processRecords(currentStocks, consumerRecords));
 
-		processCommits();
+        processCommits();
 
         if (readCount % readCountStatusUpdate == 0) {
             displayRecordsStatsAndStocks(currentStocks, consumerRecords);
@@ -139,7 +139,7 @@ public class StockPriceConsumerRunnable implements Runnable {
 
 ```
 
-Process the records async, and calls method processCommits will send offsets to Kafka.
+Process the records async, and calls method `processCommits` will send offsets to Kafka.
 
 ### Consumer with Worker Threads: processCommits
 
@@ -182,8 +182,8 @@ public class StockPriceConsumerRunnable implements Runnable {
 
             if (highestOffset != null) {
                 logger.info(String.format("Sending commit %s %d",
-						topicPartition, highestOffset.offset()));
-				try {
+                        topicPartition, highestOffset.offset()));
+                try {
                     consumer.commitSync(Collections.singletonMap(topicPartition,
                             new OffsetAndMetadata(highestOffset.offset())));
                 } catch (CommitFailedException cfe) {
@@ -197,7 +197,7 @@ public class StockPriceConsumerRunnable implements Runnable {
 
 ```
 
-Track the highest offset per TopicPartition, then call consumer.commitSync to save offset in Kafka per partition
+Track the highest offset per TopicPartition, then call `consumer.commitSync` to save offset in Kafka per partition
 
 ### Submit Records to Commit Queues per Partition
 
@@ -240,10 +240,10 @@ public class StockPriceConsumerRunnable implements Runnable {
         });
 
     }
-	...
-	private void commitRecordOffsetToKafka(ConsumerRecord<String, StockPrice> record) {
-		final TopicPartition topicPartition =
-				new TopicPartition(record.topic(), record.partition());
+    ...
+    private void commitRecordOffsetToKafka(ConsumerRecord<String, StockPrice> record) {
+        final TopicPartition topicPartition =
+                new TopicPartition(record.topic(), record.partition());
         final BlockingQueue<ConsumerRecord> queue = commitQueueMap.computeIfAbsent (
                 topicPartition,
                 k -> new LinkedTransferQueue<>());
@@ -254,12 +254,12 @@ public class StockPriceConsumerRunnable implements Runnable {
 
 ```
 
-The method ***processRecord()***, if successful send record to commit queue where it can be processed by processCommits.
+The method ***processRecord()***, if successful send a record to commit queue where it can be processed by `processCommits`.
 The method ***commitRecordOffsetToKafka()***, commits the record to its topicPartition Queue were it can be processed later by processCommits.
 
 ## ConsumerMain
 
-`ConsumerMain` now uses wakeup to gracefully stop consumer threads.
+`ConsumerMain` now uses `wakeup` to stop consumer threads gracefully.
 Check this out. `ConsumerMain` also passes the number of worker threads that each
 `StockPriceConsumerRunnable` runs.
 

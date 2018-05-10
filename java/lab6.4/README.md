@@ -1,7 +1,7 @@
 # Lab 6.4: StockPriceConsumer Exactly Once Consumer Messaging Semantics
 
 Welcome to the session 6 lab 4. The work for this lab is done in `~/kafka-training/lab6.4`.
-In this lab, you are going to implement Exactly Once messaging semantics.
+In this lab, you are going to implement ***Exactly Once*** messaging semantics.
 
 Please refer to the [Kafka course notes](https://goo.gl/a4kk5b) for any updates or changes to this lab.
 
@@ -15,9 +15,7 @@ To implement Exactly-Once semantics, you have to control and store the offsets
 for the partitions with the output of your consumer operation.
 You then have to read the stored positions when your consumer is assigned partitions to consume.
 
-Remember that consumers do not have to use Kafka's built-in offset storage, and to implement
-exactly once messaging semantics, you will need to read the offsets from a stable storage.
-In this example, we use a JDBC database.
+Remember that consumers do not have to use Kafka's built-in offset storage, and to implement ***exactly once messaging semantics***, you will need to read the offsets from stable storage. In this example, we use a JDBC database.
 
 You will need to store offsets with processed record output to make it “exactly once” message consumption.
 
@@ -69,7 +67,7 @@ public class StockPriceRecord  {
 
 ### DatabaseUtilities
 
-Saving Topic, Offset, Partition in Database
+The `DatabaseUtilities` class saves Topic, Offset, Partition data in the Database.
 
 #### ~/kafka-training/lab6.4/src/main/java/com/cloudurable/kafka/consumer/DatabaseUtilities.java
 #### Kafka Consumer:  DatabaseUtilities.saveStockPrice
@@ -82,7 +80,7 @@ import java.util.List;
 
 public class DatabaseUtilities {
 ...
-	public static void saveStockPrice(final StockPriceRecord stockRecord,
+    public static void saveStockPrice(final StockPriceRecord stockRecord,
                                       final Connection connection) throws SQLException {
 
         final PreparedStatement preparedStatement = getUpsertPreparedStatement(
@@ -109,7 +107,7 @@ public class DatabaseUtilities {
 
 ```
 
-To get exactly once, you need to safe the offset and partition with the output of the consumer process.
+To get exactly once, you need to save the offset and partition with the output of the consumer process.
 
 ## ***ACTION*** - EDIT `src/main/java/com/cloudurable/kafka/consumer/DatabaseUtilities.java` follow the instructions in the file.
 
@@ -143,7 +141,7 @@ import static com.cloudurable.kafka.consumer.DatabaseUtilities.startJdbcTransact
 public class SimpleStockPriceConsumer
 {
 ...
-	private static void pollRecordsAndProcess(
+    private static void pollRecordsAndProcess(
             int readCountStatusUpdate,
             Consumer<String, StockPrice> consumer,
             Map<String, StockPriceRecord> currentStocks, int readCount) throws Exception {
@@ -160,19 +158,19 @@ public class SimpleStockPriceConsumer
 
         final Connection connection = getConnection();
         try {
-            startJdbcTransaction(connection)			//Start DB Transaction
+            startJdbcTransaction(connection)            //Start DB Transaction
             for (StockPriceRecord stockRecordPair : currentStocks.values()) {
                 if (!stockRecordPair.isSaved()) {
-							//Save the record
-							//with partition/offset to DB.
+                            //Save the record
+                            //with partition/offset to DB.
                     saveStockPrice(stockRecordPair, connection);
                     //Mark the record as saved
                     currentStocks.put(stockRecordPair.getName(), new
                             StockPriceRecord(stockRecordPair, saved: true));
                 }
             }
-			connection.commit();			//Commit DB Transaction
-			consumer.commitSync();			//Commit the Kafka offset
+            connection.commit();            //Commit DB Transaction
+            consumer.commitSync();            //Commit the Kafka offset
         } catch (CommitFailedException ex) {
             logger.error("Failed to commit sync to log", ex);
             connection.rollback();                      //Rollback Transaction
@@ -192,7 +190,7 @@ public class SimpleStockPriceConsumer
 
 ```
 
-Try to commit the DB transaction and if it succeeds, commit the offset position
+Try to commit the DB transaction and if it succeeds, commit the offset position.
 
 ## ***ACTION*** - EDIT `src/main/java/com/cloudurable/kafka/consumer/SimpleStockPriceConsumer.java` follow the instructions in the file to commit database transaction and Kafka log.
 
@@ -237,7 +235,7 @@ import java.util.Map;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class SeekToLatestRecordsConsumerRebalanceListener
-								implements ConsumeRebalanceListener{
+                                implements ConsumeRebalanceListener{
     private final Consumer<String, StockPrice> consumer;
     private static final Logger logger = getLogger(SimpleStockPriceConsumer.class);
 
@@ -250,19 +248,19 @@ public class SeekToLatestRecordsConsumerRebalanceListener
     public void onPartitionsAssigned(final Collection<TopicPartition> partitions) {
         final Map<TopicPartition, Long> maxOffsets = getMaxOffsetsFromDatabase();
         maxOffsets.entrySet().forEach(
-				entry -> partitions.forEach(topicPartition -> {
-					if (entry.getKey().equals(topicPartition)) {
-						long maxOffset = entry.getValue();
-						//Call to consumer.seek to move to the partition.
-						consumer.seek(topicPartition, offset: maxOffset + 1);
-						displaySeekInfo(topicPartition, maxOffset);
-					}
-				}));
-	}
+                entry -> partitions.forEach(topicPartition -> {
+                    if (entry.getKey().equals(topicPartition)) {
+                        long maxOffset = entry.getValue();
+                        //Call to consumer.seek to move to the partition.
+                        consumer.seek(topicPartition, offset: maxOffset + 1);
+                        displaySeekInfo(topicPartition, maxOffset);
+                    }
+                }));
+    }
 
-	...
+    ...
 
-	private Map<TopicPartition, Long> getMaxOffsetsFromDatabase() {
+    private Map<TopicPartition, Long> getMaxOffsetsFromDatabase() {
         final List<StockPriceRecord> records = DatabaseUtilities.readDB();
         final Map<TopicPartition, Long> maxOffsets = new HashMap<>();
         records.forEach(stockPriceRecord -> {
@@ -279,7 +277,7 @@ public class SeekToLatestRecordsConsumerRebalanceListener
 
 ```
 
-We load a map of max offset per TopicPartition from the database. We could (should) use SQL but we just use a map and iterate through the current stock price records looking for max. maxOffsets key is TopicPartition and value is the max offset for that partition.
+We load a map of max offset per TopicPartition from the database. We could (should) use SQL, but for this example, we just use a map and iterate through the current stock price records looking for max. The `maxOffsets` key is TopicPartition and value is the max offset for that partition.
 Then we seek to that position with consumer.seek
 
 ## ***ACTION*** - EDIT `src/main/java/com/cloudurable/kafka/consumer/SeekToLatestRecordsConsumerRebalanceListener.java` follow the instructions in the file.
@@ -349,16 +347,15 @@ public class SimpleStockPriceConsumer
 ## ***ACTION*** - OBSERVE and then STOP consumer and producer
 
 ## Expected behavior
-You should see offset messages from SeekToLatestRecordsConsumerRebalanceListener
-in log for consumer.
+You should see offset messages from `SeekToLatestRecordsConsumerRebalanceListener`
+in the log for the consumer.
 
 ## ***ACTION*** - STOP SimpleStockPriceConsumer from IDE (while you leave StockPriceKafkaProducer for 30 seconds)
 ## ***ACTION*** - RUN SimpleStockPriceConsumer from IDE
 
 
 ## Expected behavior
-Again, you should see offset messages from SeekToLatestRecordsConsumerRebalanceListener
-in log for consumer.
+Again, you should see offset messages from `SeekToLatestRecordsConsumerRebalanceListener` in the log for the consumer.
 
 It should all run. Stop consumer and producer when finished.
 
