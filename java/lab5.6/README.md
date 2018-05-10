@@ -17,10 +17,10 @@ inflight messages to 1 so retries don’t store records out of order.
 ## Change it and then run it
 
 As before startup ZooKeeper if needed and three Kafka brokers. Then we will modify
-StockPriceKafkaProducer to configure retry, timeouts, in-flight message count and retry back
-off.  We will run the StockPriceKafkaProducer. While we start and stop any two different
-Kafka Brokers while StockPriceKafkaProducer runs. Please notice retry messages in log of
-StockPriceKafkaProducer.
+`StockPriceKafkaProducer` to configure retry, timeouts, in-flight message count and retry back
+off.  We will run the `StockPriceKafkaProducer`. While we start and stop any two different
+Kafka Brokers while `StockPriceKafkaProducer` runs. Please notice retry messages in log of
+`StockPriceKafkaProducer`.
 
 
 
@@ -80,10 +80,9 @@ broker catches up.
 
 ## WARN Inflight Message Count
 
-The MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION is the max number of unacknowledged requests that a
+The `MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION` is the max number of unacknowledged requests that a
 client can send on a single connection before blocking
 If  >1 and failed sends, then there is a risk of message re-ordering on partition during
 retry attempt (they could be written out of order of the send). If this is bad, depends on use
 but for our StockPrices this is not good, you should pick retries > 1 or inflight > 1 but not
 both. Avoid duplicates. The June 2017 release fixed this with sequence from producer.
-

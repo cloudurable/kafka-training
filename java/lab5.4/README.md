@@ -284,16 +284,16 @@ Make this change in all of the configuration files for the brokers under the con
 (config/server-0.properties, config/server-1.properties, and config/server-2.properties). The config files
 for the brokers are in lab directory under config.
 After you are done, restart Zookeeper if needed and then restart the servers. Try starting and stopping
-different Kafka Brokers while StockPriceKafkaProducer is running. Be sure to observe metrics, and observe any
+different Kafka Brokers while `StockPriceKafkaProducer` is running. Be sure to observe metrics, and observe any
 changes. Also run replication verification utility in one terminal while checking topics stats in another with
-describe-topics.sh in another terminal.
+`describe-topics.sh` in another terminal.
 
 ## ***ACTION*** - PERFORM the min.insync.replicas as decribed above
 
 ### Expected output from changing min.insync.replicas
 
 The Producer will work even if one broker goes down. The Producer will not work if two brokers go down because
-min.insync.replicas=2, thus two replicas have to be up besides leader. Since the Producer can run with 1 down broker,
+`min.insync.replicas=2`, thus two replicas have to be up besides leader. Since the Producer can run with 1 down broker,
 notice that the replication lag can get really far behind.
 
 
@@ -353,6 +353,6 @@ in another terminal.
 
 ### Expected results of changing topic to use min.insync.replicas
 
-The min.insync.replicas on the Topic config overrides the min.insync.replicas on the Broker config.
+The `min.insync.replicas` on the Topic config overrides the `min.insync.replicas` on the Broker config.
 In this setup, you can survive a single node failure but not two (output below is recovery).
 Mess around until you get it running.

@@ -14,7 +14,7 @@ If you prefer to run the examples on another OS, e.g., OSX, please refer to the
 for instructions on how to download labs and run them on OSX.
 
 Note: later versions will likely work, but this was example was done with 1.0.0.0.
-The Kafka 1.0.0.0 just came out in November 2017.
+The Kafka 1.0.0.0 just came out in November 2017. The course was recently upgraded to 1.1.0.
 
 If you are using the Virtual Box image of Linux, we unzipped the Kafka download
 and put it in `~/kafka-training/`, and then renamed the Kafka install folder to
@@ -352,8 +352,8 @@ We could use only one partition or start up 13 consumers.
 
 ### More about Kafka
 
-To learn  about Kafka see [Kafka architecture](http://cloudurable.com/blog/kafka-architecture/index.html), 
-[Kafka topic architecture](http://cloudurable.com/blog/kafka-architecture-topics/index.html) and 
+To learn  about Kafka see [Kafka architecture](http://cloudurable.com/blog/kafka-architecture/index.html),
+[Kafka topic architecture](http://cloudurable.com/blog/kafka-architecture-topics/index.html) and
 [Kafka producer architecture](http://cloudurable.com/blog/kafka-architecture-producers/index.html).
 
 <br />
@@ -382,7 +382,7 @@ To learn  about Kafka see [Kafka architecture](http://cloudurable.com/blog/kafka
 
 #### About Cloudurable
 We hope you enjoyed this article. Please provide [feedback](http://cloudurable.com/contact/index.html).
-Cloudurable provides [Kafka training](http://cloudurable.com/kafka-training/index.html 
-"Onsite, Instructor-Led, Kafka Training"), [Kafka consulting](http://cloudurable.com/kafka-aws-consulting/index.html), 
-[Kafka support](http://cloudurable.com/subscription_support/index.html) and helps 
+Cloudurable provides [Kafka training](http://cloudurable.com/kafka-training/index.html
+"Onsite, Instructor-Led, Kafka Training"), [Kafka consulting](http://cloudurable.com/kafka-aws-consulting/index.html),
+[Kafka support](http://cloudurable.com/subscription_support/index.html) and helps
 [setting up Kafka clusters in AWS](http://cloudurable.com/services/index.html).

@@ -11,15 +11,15 @@ Find the latest version of this lab [here](https://gist.github.com/RichardHighto
 
 ## Lab Write Custom Partitioner
 
-Next let's create a StockPricePartitioner. The StockPricePartitioner will implement a priority
+Next let's create a `StockPricePartitioner`. The `StockPricePartitioner` will implement a priority
 queue.
 It will treat certain stocks as important and send those stocks to the last partition.
-The StockPricePartitioner implements the Kafka interface Partitioner. The Partitioner interface is used
-to pick which partition a record lands. We will need to implement the partition() method to choose the partition.
-And we will need to implement the configure() method so we can read the importantStocks config property to setup
-importantStocks set which we use to determine if a stock is important and needs to be sent to the important partition.
-To do this we need to configure new Partitioner in Producer config with property
-ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, and pass config property importantStocks.
+The `StockPricePartitioner` implements the Kafka interface `Partitioner`. The `Partitioner` interface is used
+to pick which partition a record lands. We will need to implement the `partition()` method to choose the partition.
+And we will need to implement the `configure()` method so we can read the `importantStocks` config property to setup
+`importantStocks` set which we use to determine if a stock is important and needs to be sent to the important partition.
+To do this we need to configure new `Partitioner` in Producer config with property
+`ProducerConfig.INTERCEPTOR_CLASSES_CONFIG`, and pass config property `importantStocks`.
 
 
 ## Producer Partitioning
@@ -27,14 +27,14 @@ ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, and pass config property importantSto
 To set a custom partitioner set the Producer config property `partitioner.class`.
 The default `partitioner.class` is `org.apache.kafka.clients.producer.internals.DefaultPartitioner`.
 All Partitioner class implements the Kafka `Partitioner` interface and have to override the
-partition() method which takes topic, key, value, and cluster and then returns partition number for record.
+`partition()` method which takes topic, key, value, and cluster and then returns partition number for record.
 
 
 
 ## StockPricePartitioner configure
 
-StockPricePartitioner implements the configure() method with importantStocks config property.
-The importantStocks gets parsed and added to importantStocks HashSet which is used to filter the stocks.
+`StockPricePartitioner` implements the `configure()` method with `importantStocks` config property.
+The `importantStocks` gets parsed and added to `importantStocks` HashSet which is used to filter the stocks.
 
 #### ~/kafka-training/lab5.8/src/main/java/com/cloudurable/kafka/producer/StockPriceKafkaProducer.java
 #### Kafka Producer:  StockPriceKafkaProducer configure partitioner
@@ -147,8 +147,8 @@ public class StockPriceKafkaProducer {
     }
 ```
 
-Configure the new Partitioner in Producer config with property ProducerConfig.INTERCEPTOR_CLASSES_CONFIG.
-Pass config property to importantStocks. The importantStock are the ones that go into priority queue.
+Configure the new `Partitioner` in Producer config with property `ProducerConfig.INTERCEPTOR_CLASSES_CONFIG`.
+Pass config property to `importantStocks`. The `importantStock` are the ones that go into priority queue.
 Run it as before. The important stocks are IBM and UBER in this example and are the only ones that will go
 into the last partition.
 
@@ -157,12 +157,12 @@ into the last partition.
 
 
 ## Review of lab work
-You implemented custom ProducerSerializer.
-You tested failover configuring broker/topic min.insync.replicas, and acks.
+You implemented custom `ProducerSerializer`.
+You tested failover configuring broker/topic `min.insync.replicas`, and `acks`.
 You implemented batching and compression and used metrics to see how it was or was not working.
 You implemented retires and timeouts, and tested that it worked.
 You setup max inflight messages and retry back off.
-You implemented a ProducerInterceptor.
+You implemented a `ProducerInterceptor`.
 You implemented a custom partitioner to implement a priority queue for important stocks.
 
 ## ***ACTION*** - START ZooKeeper and Kafka Brokers as needed
@@ -170,4 +170,3 @@ You implemented a custom partitioner to implement a priority queue for important
 ## ***ACTION*** - Run SimpleStockPriceConsumer from the IDE
 
 It should all work. :)
-

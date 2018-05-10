@@ -10,15 +10,15 @@ Find the latest version of this lab [here](https://gist.github.com/RichardHighto
 
 ## Producer Interception
 
-You will configure our Producer config and set the config property: interceptor.classes to our ProducerInterceptor
+You will configure our Producer config and set the config property: `interceptor.classes` to our `ProducerInterceptor`
 which we will define shortly.
-The  ProducerInterceptor will print out debug information when we send a message and when the broker
+The `ProducerInterceptor` will print out debug information when we send a message and when the broker
 acknowledges a message.
-The interceptors we pass must implement ProducerInterceptor interface so we will define a
-StockProducerInterceptor that implements ProducerInterceptor. The StockProducerInterceptor will intercept records
+The interceptors we pass must implement `ProducerInterceptor` interface so we will define a
+`StockProducerInterceptor` that implements `ProducerInterceptor`. The `StockProducerInterceptor` will intercept records
 that the producer sends to broker and after intercept acks from the broker.
 
-Let's define the StockProducerInterceptor as follows:
+Let's define the `StockProducerInterceptor` as follows:
 
 
 
@@ -49,7 +49,7 @@ Notice that the StockProducerInterceptor implements ProducerInterceptor.
 
 ## ProducerInterceptor onSend
 
-The onSend method gets called before the record is sent to the broker.
+The `onSend` method gets called before the record is sent to the broker.
 
 #### ~/kafka-training/lab5.7/src/main/java/com/cloudurable/kafka/producer/StockProducerInterceptor.java
 #### Kafka Producer:  StockProducerInterceptor onSend
@@ -86,7 +86,7 @@ public class StockProducerInterceptor implements ProducerInterceptor {
 }
 ```
 
-The StockProducerInterceptor overrides the onSend method and increments onSendCount.
+The `StockProducerInterceptor` overrides the onSend method and increments onSendCount.
 Every 100 onSendCount, we print out record data.
 
 ## ***ACTION*** - EDIT StockProducerInterceptor.java and implement the onSend method something like above.
@@ -96,7 +96,7 @@ Every 100 onSendCount, we print out record data.
 ## ProducerInterceptor onAck
 
 
-The onAck method gets called after the broker acknowledges the record.
+The `onAck` method gets called after the broker acknowledges the record.
 
 #### ~/kafka-training/lab5.7/src/main/java/com/cloudurable/kafka/producer/StockProducerInterceptor.java
 #### Kafka Producer:  StockProducerInterceptor onAck
@@ -250,7 +250,7 @@ The above sets the `StockProducerInterceptor.class.getName()` in the config prop
 ### Run it. Run Servers. Run Producer. Results.
 
 Next we startup ZooKeeper if needed, and start or restart Kafka brokers as before.
-Then run the StockPriceKafkaProducer and look for log message from ProducerInterceptor in output.
+Then run the `StockPriceKafkaProducer` and look for log message from `ProducerInterceptor` in output.
 
 ## ***ACTION*** - START ZooKeeper and Kafka Brokers if needed
 ## ***ACTION*** - RUN StockPriceKafkaProducer from the IDE
@@ -260,4 +260,4 @@ Then run the StockPriceKafkaProducer and look for log message from ProducerInter
 
 ### Results ProducerInterceptor Output
 
-You should see oAck and onSend messages in the log from the interceptor.
+You should see `oAck` and `onSend` messages in the log from the interceptor.
